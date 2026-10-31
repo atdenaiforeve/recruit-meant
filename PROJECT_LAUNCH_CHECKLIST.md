@@ -21,8 +21,9 @@ This checklist is for the project owner and the parent/guardian helping supervis
 - [ ] Manual phone/tablet/desktop preview test completed using FIRST_TEST_GUIDE.md.
 - [x] Separate fictional-only test database and test Worker created; production intake remains disabled.
 - [x] Test form and test admin dashboard pages added; the form only accepts fixed fictional identity/contact values.
-- [ ] Parent/guardian configures ADMIN_TOKEN as a secret on the isolated test Worker before dashboard testing.
-- [ ] Run one complete fictional submission → dashboard review → status update → deletion test.
+- [ ] Run the fictional-only submission test without an admin token and verify the record in the isolated test database.
+- [ ] Later, before dashboard review, configure a fresh ADMIN_TOKEN secret on the isolated test Worker with appropriate supervision.
+- [ ] Run the separate admin test: dashboard review → status update → deletion.
 - [ ] Worker health endpoint has been tested from a browser; the web check could not access the endpoint.
 
 ## Required before accepting real applications
