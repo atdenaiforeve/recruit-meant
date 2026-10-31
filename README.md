@@ -11,6 +11,8 @@ This repository contains the developer recruitment website for the Roblox projec
 - [Application preview](application.html)
 - [Privacy and applicant safety draft](privacy.html)
 - [First website test guide](FIRST_TEST_GUIDE.md)
+- [Isolated test submission form](test-application.html)
+- [Isolated test admin dashboard](test-admin.html)
 - [Pre-launch checklist](PROJECT_LAUNCH_CHECKLIST.md)
 
 ## Recruitment status
