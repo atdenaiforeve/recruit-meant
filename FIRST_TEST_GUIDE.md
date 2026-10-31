@@ -82,9 +82,10 @@ The same passcode protects the isolated test dashboard's read, status-update and
 Use fictional placeholder text only. Do not enter real contact details.
 - [ ] The fixed fictional test identity is displayed.
 - [ ] Age-range selector opens and options are readable.
-- [ ] Motivation and experience text areas accept fictional test text.
+- [ ] The combined role-interest, skills and experience question accepts fictional test text.
 - [ ] Tool checkboxes are large enough to tap.
-- [ ] Other tools field accepts fictional test text.
+- [ ] The Other tools field appears only when Other tools is selected and accepts fictional test text.
+- [ ] The Other contact method field appears only when Other is selected.
 - [ ] Contact method and test message fields work.
 - [ ] Privacy/test acknowledgement checkbox is easy to tap.
 - [ ] Submit button sends to the isolated test database and returns a test ID.
