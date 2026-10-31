@@ -1,27 +1,76 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#18231f"><title>Final application details | Beyond the Horizon</title><link rel="stylesheet" href="style.css"></head><body><header><div class="nav"><div class="brand">Beyond the Horizon</div><nav aria-label="Main navigation"><a href="index.html">Project</a><a href="requirements.html">Requirements</a><a href="roles.html">Roles</a></nav></div></header><main><div class="hero"><div class="eyebrow">Developer recruitment · Step 5 of 5</div><h1>Final application details</h1></div><div class="steps"><a class="" href="index.html">1. Project</a><a class="" href="requirements.html">2. Requirements</a><a class="" href="roles.html">3. Roles</a><a class="" href="confirm.html">4. Confirm</a><a class="current" href="application.html">5. Application</a></div><section class="section"><h2>About you</h2><p>These are the first two application details. We will decide the remaining questions together before the form is connected or applications are collected.</p><form><label for="age">Age range</label><select id="age" name="age" required><option value="">Choose an age range</option><option>Under 13</option><option>13–15</option><option>16–17</option><option>18 or older</option></select><label for="reason">Why do you want to join Beyond the Horizon?</label><textarea id="reason" name="reason" placeholder="Tell us what interests you about the project and the role you chose." required></textarea><h2>4. Preferred contact method</h2>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#18231f">
+<title>Final application details | Beyond the Horizon</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="nav"><div class="brand">Beyond the Horizon</div><nav aria-label="Main navigation"><a href="index.html">Project</a><a href="requirements.html">Requirements</a><a href="roles.html">Roles</a></nav></div></header>
+<main>
+<div class="hero"><div class="eyebrow">Developer recruitment · Step 5 of 5</div><h1>Final application details</h1></div>
+<div class="steps"><a href="index.html">1. Project</a><a href="requirements.html">2. Requirements</a><a href="roles.html">3. Roles</a><a href="confirm.html">4. Confirm</a><a class="current" href="application.html">5. Application</a></div>
+<section class="section">
+<h2>Your selected role</h2>
+<p id="role-display">No role selected. Return to the roles page and choose one.</p>
+<h2>About you</h2>
+<form id="application-form">
+<label for="display-name">What name should the team use for you?</label>
+<input id="display-name" name="display_name" maxlength="60" required placeholder="Your chosen display name">
+<label for="age">Age range</label>
+<select id="age" name="age_range" required>
+<option value="">Choose an age range</option><option>13–15</option><option>16–17</option><option>18 or older</option>
+</select>
+<label for="reason">Why do you want to join Beyond the Horizon?</label>
+<textarea id="reason" name="motivation" maxlength="2000" required placeholder="Tell us what interests you about the project and the role you chose."></textarea>
+<h2>Tools you use</h2>
+<p>Select the tools you already use or are learning. You can select more than one.</p>
+<div class="check-list">
+<label><input type="checkbox" name="tools" value="Roblox Studio"> Roblox Studio</label>
+<label><input type="checkbox" name="tools" value="Blender"> Blender</label>
+<label><input type="checkbox" name="tools" value="Image editing tools"> Image editing tools</label>
+<label><input type="checkbox" name="tools" value="Audio editing tools"> Audio editing tools</label>
+<label><input type="checkbox" name="tools" value="Other tools"> Other tools</label>
+</div>
+<label for="other-tools">Other tools (optional)</label>
+<input id="other-tools" name="other_tools" maxlength="200" placeholder="Type any other tools you use">
+<label for="experience">What experience do you have with your chosen role and these tools?</label>
+<textarea id="experience" name="experience" maxlength="1500" placeholder="You can describe projects you've worked on or skills you're learning."></textarea>
+<h2>Preferred contact method</h2>
 <label for="contact-method">How should we contact you about your application?</label>
 <select id="contact-method" name="contact_method" required>
-<option value="">Choose a contact method</option>
-<option>Email</option>
-<option>Discord</option>
-<option value="Other">Other</option>
+<option value="">Choose a contact method</option><option value="Email">Email</option><option value="Discord">Discord</option><option value="Other">Other</option>
 </select>
 <label for="other-contact" id="other-contact-label" hidden>If you selected Other, type your preferred method here</label>
-<input id="other-contact" name="other_contact_method" type="text" placeholder="Enter another contact method" hidden>
+<input id="other-contact" name="other_contact_method" maxlength="80" placeholder="Type another contact method" hidden>
 <label for="contact-detail">Contact detail for your chosen method</label>
-<input id="contact-detail" name="contact_detail" type="text" placeholder="Email address or Discord username" required>
-<p class="small">Only provide a contact detail you have permission to share. If you're under 18, arrange contact with help from a parent or guardian. Do not enter a phone number, home address or password.</p>
-<p class="small">Draft only: this page does not submit or save an application yet.</p><button class="button" type="button" disabled>Application submission not set up yet</button></form><script>
-const method = document.getElementById('contact-method');
-const other = document.getElementById('other-contact');
-const otherLabel = document.getElementById('other-contact-label');
+<input id="contact-detail" name="contact_detail" maxlength="160" required placeholder="Email address or Discord username">
+<p class="small">Only share a contact detail you have permission to provide. Do not enter a phone number, home address, password or other sensitive information. Applicants under 18 should have a parent or guardian review the contact method before sharing it.</p>
+<div class="note"><p><strong>Applications are not open yet.</strong> This form is being prepared. Do not enter real personal information or try to submit an application until the project owner confirms that applications are open and provides the full privacy information.</p></div>
+<button class="button" type="button" disabled>Applications not open yet</button>
+<p class="small" id="form-status" aria-live="polite">Your selections are only shown in this preview and are not being submitted or saved.</p>
+</form>
+<a class="button secondary" href="confirm.html">Back to confirmation</a>
+</section>
+</main>
+<footer>Beyond the Horizon · Development recruitment</footer>
+<script>
+const params = new URLSearchParams(location.search);
+const selectedRole = params.get("role") || sessionStorage.getItem("bthRole") || "";
+document.getElementById("role-display").textContent = selectedRole || "No role selected. Return to the roles page and choose one.";
+const method = document.getElementById("contact-method");
+const other = document.getElementById("other-contact");
+const otherLabel = document.getElementById("other-contact-label");
 function updateOtherContact() {
-  const show = method.value === 'Other';
+  const show = method.value === "Other";
   other.hidden = !show;
   otherLabel.hidden = !show;
   other.required = show;
 }
-method.addEventListener('change', updateOtherContact);
+method.addEventListener("change", updateOtherContact);
 updateOtherContact();
-</script><a class="button secondary" href="confirm.html">Back to confirmation</a></section></main><footer>Beyond the Horizon · Development recruitment</footer></body></html>
+</script>
+</body>
+</html>
