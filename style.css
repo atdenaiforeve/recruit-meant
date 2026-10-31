@@ -14,3 +14,8 @@ details{margin:10px 0}summary{font-weight:700;cursor:pointer}ul{padding-left:22p
 label{display:block;font-weight:700;margin:16px 0 6px}select,textarea,input{font:inherit;width:100%;max-width:560px;padding:10px;border:1px solid #bdc8bd;border-radius:5px;background:#fff;color:var(--ink)}textarea{min-height:130px;resize:vertical}
 .small{font-size:13px;color:var(--muted)}footer{padding:20px 0 32px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 @media(max-width:620px){.nav{align-items:flex-start;flex-direction:column}.hero{padding:45px 0 30px}.cards{grid-template-columns:1fr}}
+
+input[type="checkbox"]{width:auto;max-width:none;vertical-align:middle;margin-right:8px}
+button:disabled,.button:disabled{opacity:.55;cursor:not-allowed}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #9b6b24;outline-offset:3px}
+.check-list label{font-weight:400}
