@@ -20,11 +20,11 @@ This checklist is for the project owner and the parent/guardian helping supervis
 - [x] Responsive phone and tablet styling added to the application page and shared stylesheet.
 - [ ] Manual phone/tablet/desktop preview test completed using FIRST_TEST_GUIDE.md.
 - [x] Separate fictional-only test database and test Worker created; production intake remains disabled.
-- [x] Test form and test admin dashboard use a temporary shared PIN; the test Worker checks it server-side.
-- [x] Test message field accepts any non-empty fictional text up to 120 characters without a special prefix; the isolated Worker stores it as the test message.
+- [x] Normal-style test application form submits to the isolated test Worker without an applicant PIN; the test admin dashboard remains passcode-protected.
+- [x] Test form uses a fixed fictional applicant identity, normal-style application fields and a 120-character fictional message field; submissions are stored only in the isolated test database.
 - [x] Test dashboard displays the submitted test message and experience field.
 - [x] Isolated test submission and admin routes no longer require an ADMIN_TOKEN.
-- [ ] Run the fictional-only submission test in a browser and verify the record in the isolated test database. Backend source is deployed and configured; browser runtime submission is not yet verified.
+- [ ] Run the open fictional-only submission form in a browser and verify the record in the isolated test database. Backend source is deployed and configured; browser runtime submission is not yet verified.
 - [ ] Run the separate test dashboard check: review → status update → deletion.
 - [ ] Worker health endpoint has been tested from a browser; the web check could not access the endpoint.
 
@@ -53,7 +53,7 @@ This checklist is for the project owner and the parent/guardian helping supervis
 ## Security reminders
 
 - Keep the admin page unlinked from public navigation.
-- The temporary shared PIN is only for fictional test data. It is hardcoded in the isolated test Worker source and can be seen by anyone with access to that Worker in Cloudflare. It is not suitable for real applicant records.
+- The temporary passcode is used only for the isolated test admin dashboard. It remains a temporary test credential and is not suitable for real applicant records. The public test application form does not require it.
 - Replace the temporary test PIN before real recruitment. Do not reuse it as a personal account password.
 - Never share production administrator credentials or give applicants access to the dashboard.
 - Do not add applicants to the official game, project accounts or shared workspaces until permissions and supervision are agreed.
