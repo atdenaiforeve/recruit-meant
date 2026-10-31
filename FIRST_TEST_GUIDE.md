@@ -8,7 +8,7 @@
 - Use only the public preview website and isolated test pages.
 - Do not enter real names, ages, email addresses, Discord details, phone numbers, school details, passwords or other personal information.
 - Do not ask friends or applicants to submit applications during this test.
-- The fixed fictional identity is `TEST APPLICANT`. Fill the form with made-up test values only. The message field accepts fictional text up to 120 characters; never enter real personal or contact details.
+- The fixed fictional identity is `TEST APPLICANT` and the fixed fictional Roblox username is `FAKE_TEST_USER`. Fill the form with made-up test values only. The message field accepts fictional text up to 120 characters; never enter real personal or contact details.
 - Do not share screenshots that show personal browser information, account names or private messages.
 
 ## Test devices
@@ -80,8 +80,8 @@ The same passcode protects the isolated test dashboard's read, status-update and
 
 ## Test 5 — normal-style test form controls
 Use fictional placeholder text only. Do not enter real contact details.
-- [ ] The fixed fictional test identity is displayed.
-- [ ] Age-range selector opens and options are readable.
+- [ ] The fixed fictional test identity and Roblox username are displayed.
+- [ ] Age-range selector opens and options are readable.\n- [ ] The Roblox username field is included in the normal application and a fake fixed value is used in the test form.
 - [ ] The combined role-interest, skills and experience question accepts fictional test text.
 - [ ] Tool checkboxes are large enough to tap.
 - [ ] The Other tools field appears only when Other tools is selected and accepts fictional test text.
