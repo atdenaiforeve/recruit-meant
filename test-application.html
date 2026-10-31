@@ -1,82 +1,23 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#18231f">
-<title>Isolated test submission | Beyond the Horizon</title>
-<link rel="stylesheet" href="style.css">
-<style>
-.test-banner{background:#fff4d8;border:1px solid #d7b66b;border-left:4px solid #9b6b24;padding:14px 16px;border-radius:6px;margin:16px 0}
-.readonly{background:#edf0eb;color:#445047}
-.form-status{padding:12px;border-radius:5px;margin:14px 0;overflow-wrap:anywhere}
-.form-status.ok{background:#e5f1e7;border:1px solid #9bbda1}
-.form-status.error{background:#f9e8e6;border:1px solid #d6aaa5}
-</style>
-</head>
-<body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#18231f"><title>Isolated test submission | Beyond the Horizon</title><link rel="stylesheet" href="style.css"><style>
+.test-banner{background:#fff4d8;border:1px solid #d7b66b;border-left:4px solid #9b6b24;padding:14px 16px;border-radius:6px;margin:16px 0}.readonly{background:#edf0eb;color:#445047}.form-status{padding:12px;border-radius:5px;margin:14px 0;overflow-wrap:anywhere}.form-status.ok{background:#e5f1e7;border:1px solid #9bbda1}.form-status.error{background:#f9e8e6;border:1px solid #d6aaa5}#test-content[hidden]{display:none}.lock-wrap{max-width:430px;margin:48px auto;padding:28px 22px;background:#fff;border:1px solid #dce2da;border-radius:14px;text-align:center;box-shadow:0 12px 36px #17231a12}.lock-icon{width:64px;height:64px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;background:#edf2ed;font-size:28px}.lock-wrap input{width:100%;box-sizing:border-box;text-align:center;font-size:22px;letter-spacing:5px;min-height:52px}.lock-wrap button{width:100%;margin-top:12px}.lock-note{font-size:13px;color:#66736a;line-height:1.5}
+</style></head><body>
 <header><div class="nav"><div class="brand">Beyond the Horizon · Test Environment</div><nav aria-label="Test navigation"><a href="roles.html">Roles</a><a href="FIRST_TEST_GUIDE.md">Test guide</a></nav></div></header>
-<main>
-<div class="hero"><div class="eyebrow">Isolated test · Not recruitment</div><h1>Test application submission</h1>
-<p class="intro">This page sends fictional test data to a separate test database. It cannot accept real applicant identities or contact details.</p></div>
+<main><div class="hero"><div class="eyebrow">Isolated test · Not recruitment</div><h1>Test application submission</h1><p class="intro">This page sends fictional test data to a separate test database. It cannot accept real applicant identities or contact details.</p></div>
 <div class="test-banner"><strong>TEST MODE ONLY.</strong> The only accepted identity is TEST APPLICANT and the only accepted contact is test@example.invalid. Do not enter anyone's real information.</div>
-<section class="section">
-<h2>Selected role</h2>
-<p id="selected-role">No role selected. Return to the roles page first.</p>
-<label for="age-range">Test age range</label>
-<select id="age-range" required><option value="13–15">13–15 (test value)</option><option value="16–17">16–17 (test value)</option><option value="18 or older">18 or older (test value)</option></select>
-<label for="motivation">Test motivation</label>
-<textarea id="motivation" maxlength="300" readonly>TEST ONLY — checking the submission workflow.</textarea>
-<fieldset style="border:1px solid #dce2da;border-radius:6px;padding:12px;margin:16px 0">
-<legend><strong>Test tools</strong></legend>
-<label><input type="checkbox" name="tools" value="Roblox Studio"> Roblox Studio (test)</label>
-<label><input type="checkbox" name="tools" value="Blender"> Blender (test)</label>
-<label><input type="checkbox" name="tools" value="Other tools"> Other tools (test)</label>
-</fieldset>
-<label for="test-name">Fixed test display name</label>
-<input class="readonly" id="test-name" value="TEST APPLICANT" readonly>
-<label for="test-contact">Fixed test contact</label>
-<input class="readonly" id="test-contact" value="test@example.invalid" readonly>
-<label class="checkbox-consent"><input id="privacy-ack" type="checkbox"> I understand this is fictional test data and not a real application.</label>
-<button class="button" id="submit-test" type="button" disabled>Submit fictional test application</button>
-<p class="small" id="form-status" aria-live="polite">Test API connection has not yet been checked.</p>
-</section>
-</main>
+<section class="lock-wrap" id="pin-lock"><div class="lock-icon" aria-hidden="true">🔒</div><h2>Test access</h2><p>Enter the test passcode to unlock this submission page.</p><label for="test-pin">Passcode</label><input id="test-pin" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="32" placeholder="Enter passcode"><button class="button" id="unlock-test" type="button">Unlock</button><p class="lock-note" id="pin-status" aria-live="polite">The test form stays locked until the server verifies the passcode.</p></section>
+<div id="test-content" hidden><section class="section"><h2>Selected role</h2><p id="selected-role">No role selected. Return to the roles page first.</p>
+<label for="age-range">Test age range</label><select id="age-range" required><option value="13–15">13–15 (test value)</option><option value="16–17">16–17 (test value)</option><option value="18 or older">18 or older (test value)</option></select>
+<label for="motivation">Test motivation</label><textarea id="motivation" maxlength="300" readonly>TEST ONLY — checking the submission workflow.</textarea>
+<fieldset style="border:1px solid #dce2da;border-radius:6px;padding:12px;margin:16px 0"><legend><strong>Test tools</strong></legend><label><input type="checkbox" name="tools" value="Roblox Studio"> Roblox Studio (test)</label><label><input type="checkbox" name="tools" value="Blender"> Blender (test)</label><label><input type="checkbox" name="tools" value="Other tools"> Other tools (test)</label></fieldset>
+<label for="test-name">Fixed test display name</label><input class="readonly" id="test-name" value="TEST APPLICANT" readonly><label for="test-contact">Fixed test contact</label><input class="readonly" id="test-contact" value="test@example.invalid" readonly>
+<label class="checkbox-consent"><input id="privacy-ack" type="checkbox"> I understand this is fictional test data and not a real application.</label><button class="button" id="submit-test" type="button" disabled>Submit fictional test application</button><p class="small" id="form-status" aria-live="polite">Test API connection has not yet been checked.</p></section></div></main>
 <footer>Isolated test environment · Real recruitment remains closed</footer>
 <script>
-const API="https://bth-first-test.pagey101212.workers.dev";
-const params=new URLSearchParams(location.search);
-const role=params.get("role")||sessionStorage.getItem("bthRole")||"";
-const roleOut=document.getElementById("selected-role");
-const submit=document.getElementById("submit-test");
-const consent=document.getElementById("privacy-ack");
-const status=document.getElementById("form-status");
-roleOut.textContent=role||"No role selected. Return to the roles page first.";
-submit.disabled=!role||!consent.checked;
-consent.addEventListener("change",()=>{submit.disabled=!role||!consent.checked});
-fetch(API+"/api/health").then(r=>r.json()).then(d=>{
- status.textContent=d.ok&&d.testOnly?"Test API connected. This is a separate test database.":"Test API returned an unexpected response.";
-}).catch(()=>{status.textContent="Could not reach the test API. Check the Worker deployment before submitting."});
-submit.addEventListener("click",async()=>{
- if(!role||!consent.checked)return;
- submit.disabled=true;status.textContent="Sending fictional test record…";
- const tools=[...document.querySelectorAll('input[name="tools"]:checked')].map(x=>x.value);
- try{
-  const response=await fetch(API+"/api/applications",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({
-   display_name:"TEST APPLICANT",age_range:document.getElementById("age-range").value,chosen_role:role,
-   tools,other_tools:"",experience:"TEST DATA ONLY",motivation:document.getElementById("motivation").value,
-   contact_method:"Email",other_contact_method:"",contact_detail:"test@example.invalid",privacy_acknowledged:true
-  })});
-  const data=await response.json();
-  if(!response.ok)throw new Error(data.error||"Submission failed");
-  status.className="form-status ok";
-  status.textContent="Fictional test submission saved. Test ID: "+data.application_id+". No admin token is used for this submission test; dashboard review is postponed until admin access is configured later.";
-  sessionStorage.setItem("bthTestApplicationId",data.application_id);
- }catch(e){
-  status.className="form-status error";status.textContent=e.message;
- }finally{submit.disabled=!consent.checked||!role}
-});
-</script>
-</body>
-</html>
+const API="https://bth-first-test.pagey101212.workers.dev";const params=new URLSearchParams(location.search);const role=params.get("role")||sessionStorage.getItem("bthRole")||"";let testPin="";
+const roleOut=document.getElementById("selected-role"),submit=document.getElementById("submit-test"),consent=document.getElementById("privacy-ack"),status=document.getElementById("form-status"),pinStatus=document.getElementById("pin-status");
+roleOut.textContent=role||"No role selected. Return to the roles page first.";submit.disabled=!role||!consent.checked;consent.addEventListener("change",()=>{submit.disabled=!role||!consent.checked});
+document.getElementById("unlock-test").addEventListener("click",async()=>{const candidate=document.getElementById("test-pin").value;pinStatus.textContent="Checking passcode…";try{const r=await fetch(API+"/api/unlock",{method:"POST",headers:{"x-test-pin":candidate}});const d=await r.json();if(!r.ok)throw new Error(d.error||"Unlock failed");testPin=candidate;document.getElementById("pin-lock").hidden=true;document.getElementById("test-content").hidden=false;fetch(API+"/api/health").then(x=>x.json()).then(x=>{status.textContent=x.ok&&x.testOnly&&x.pinProtected?"Test API connected. Separate test database confirmed.":"Test API returned an unexpected response."}).catch(()=>{status.textContent="Could not reach the test API. Check the Worker deployment before submitting."})}catch(e){testPin="";pinStatus.textContent=e.message;document.getElementById("test-pin").value=""}});
+document.getElementById("test-pin").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("unlock-test").click()});
+submit.addEventListener("click",async()=>{if(!testPin||!role||!consent.checked)return;submit.disabled=true;status.textContent="Sending fictional test record…";const tools=[...document.querySelectorAll('input[name="tools"]:checked')].map(x=>x.value);try{const response=await fetch(API+"/api/applications",{method:"POST",headers:{"content-type":"application/json","x-test-pin":testPin},body:JSON.stringify({display_name:"TEST APPLICANT",age_range:document.getElementById("age-range").value,chosen_role:role,tools,other_tools:"",experience:"TEST DATA ONLY",motivation:document.getElementById("motivation").value,contact_method:"Email",other_contact_method:"",contact_detail:"test@example.invalid",privacy_acknowledged:true})});const data=await response.json();if(!response.ok)throw new Error(data.error||"Submission failed");status.className="form-status ok";status.textContent="Fictional test submission saved. Test ID: "+data.application_id+". It is stored only in the isolated test database.";sessionStorage.setItem("bthTestApplicationId",data.application_id)}catch(e){status.className="form-status error";status.textContent=e.message}finally{submit.disabled=!consent.checked||!role}});
+window.addEventListener("pagehide",()=>{testPin="";document.getElementById("test-pin").value=""});
+</script></body></html>
