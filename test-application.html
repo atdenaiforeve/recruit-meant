@@ -71,7 +71,7 @@ submit.addEventListener("click",async()=>{
   const data=await response.json();
   if(!response.ok)throw new Error(data.error||"Submission failed");
   status.className="form-status ok";
-  status.textContent="Fictional test submission saved. Test ID: "+data.application_id+". It should now appear in the test admin dashboard once the guardian-configured test admin token is set.";
+  status.textContent="Fictional test submission saved. Test ID: "+data.application_id+". No admin token is used for this submission test; dashboard review is postponed until admin access is configured later.";
   sessionStorage.setItem("bthTestApplicationId",data.application_id);
  }catch(e){
   status.className="form-status error";status.textContent=e.message;
