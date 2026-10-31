@@ -18,6 +18,9 @@
 <form id="application-form">
 <label for="display-name">What name should the team use for you?</label>
 <input id="display-name" name="display_name" type="text" autocomplete="nickname" autocapitalize="words" maxlength="60" required placeholder="Your chosen display name">
+<label for="roblox-username">What is your Roblox username? (not your display name)</label>
+<input id="roblox-username" name="roblox_username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]{3,20}" required placeholder="Your Roblox username">
+<p class="small">We need your Roblox username to invite you to the Roblox Studio team. Enter only your username — never your password. Ask a parent or guardian to check it before sharing.</p>
 <label for="age">Age range</label>
 <select id="age" name="age_range" required><option value="">Choose an age range</option><option>13–15</option><option>16–17</option><option>18 or older</option></select>
 <label for="reason">Why do you want this role, and what skills or experience would you bring?</label>
@@ -95,7 +98,7 @@ form.addEventListener("submit", async event => {
     const healthResponse = await fetch(API + "/api/health", {cache:"no-store"}); const health = await healthResponse.json();
     if (!healthResponse.ok || health.intakeEnabled !== true) throw new Error("Applications have closed. Nothing was submitted.");
     const payload = {
-      display_name: form.elements.display_name.value.trim(), age_range: form.elements.age_range.value, chosen_role: selectedRole,
+      display_name: form.elements.display_name.value.trim(), roblox_username: form.elements.roblox_username.value.trim(), age_range: form.elements.age_range.value, chosen_role: selectedRole,
       tools: Array.from(form.querySelectorAll('input[name="tools"]:checked')).map(input => input.value),
       other_tools: form.elements.other_tools.value.trim(), experience: "", motivation: form.elements.motivation.value.trim(),
       contact_method: form.elements.contact_method.value, other_contact_method: form.elements.other_contact_method.value.trim(),
