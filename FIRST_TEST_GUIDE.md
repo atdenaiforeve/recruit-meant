@@ -1,14 +1,14 @@
 # Beyond the Horizon — first website test
 
 **Test type:** Preview / device, navigation and isolated fictional submission test  
-**Status:** Ready for manual testing  
+**Status:** Test message field prepared; end-to-end browser verification still required  
 **Important:** The test submission form and test dashboard use a temporary shared passcode. Production recruitment remains closed.
 
 ## Safety rules
 - Use only the public preview website and isolated test pages.
 - Do not enter real names, ages, email addresses, Discord details, phone numbers, school details, passwords or other personal information.
 - Do not ask friends or applicants to submit applications during this test.
-- Only the fixed fictional test identity and contact details are accepted by the test API.
+- The fixed fictional identity is `TEST APPLICANT`. The message field accepts any non-empty text up to 120 characters so gibberish can be tested; use made-up text only, never personal details.
 - Do not share screenshots that show personal browser information, account names or private messages.
 
 ## Test devices
@@ -62,12 +62,12 @@ Checks:
 2. On the confirmation page, use **Run isolated test submission**.
 3. Enter the temporary test passcode on the lock screen.
 4. Confirm that the selected role is carried into the test form.
-5. Use only the fixed fictional test identity and contact details already filled in.
+5. Keep the fixed fictional test identity and type made-up text such as `hello123` in the message box.
 6. Tick the test-data acknowledgement and submit once.
 7. Record the returned test ID.
 8. Verify the record exists in BTH_FIRST_TEST_DB, not the production database.
 
-The test Worker checks the passcode on the server for both unlock and submission. The temporary passcode is currently hardcoded in the isolated test Worker for this test only. It is not in the public GitHub website files. Anyone with access to the Cloudflare Worker source can see it, so it must be replaced with a Cloudflare secret before real recruitment or real personal data is ever accepted.
+The test Worker checks the passcode on the server for both unlock and submission. The message field is stored as a test message and accepts any non-empty text up to 120 characters. The temporary passcode is currently hardcoded in the isolated test Worker for this test only. It is not in the public GitHub website files. Anyone with access to the Cloudflare Worker source can see it, so it must be replaced with a Cloudflare secret before real recruitment or real personal data is ever accepted.
 
 ## Test 4 — test dashboard
 1. Open the isolated test admin dashboard.
@@ -80,7 +80,8 @@ The same passcode protects the isolated test dashboard's read, status-update and
 
 ## Test 5 — application preview controls
 Use fictional placeholder text only, such as TEST ONLY. Do not enter real contact details.
-- [ ] Name field is easy to select and type into.
+- [ ] The fixed fictional test identity is displayed.
+- [ ] The message box accepts made-up text such as `hello123` without requiring a special prefix.
 - [ ] Age-range selector opens and options are readable.
 - [ ] Text areas are usable on the device keyboard.
 - [ ] Tool checkboxes are large enough to tap.
