@@ -11,20 +11,17 @@
 <header><div class="nav"><div class="brand">Beyond the Horizon</div><nav aria-label="Main navigation"><a href="index.html">Project</a><a href="requirements.html">Requirements</a><a href="roles.html">Roles</a><a href="privacy.html">Privacy draft</a></nav></div></header>
 <main>
 <div class="hero"><div class="eyebrow">Developer recruitment · Step 5 of 5</div><h1>Final application details</h1></div>
-<div class="steps"><a href="index.html">1. Project</a><a href="requirements.html">2. Requirements</a><a href="roles.html">3. Roles</a><a href="confirm.html">4. Confirm</a><a class="current" href="application.html">5. Application</a></div>
+<div class="steps"><a href="index.html">1. Project</a><a href="requirements.html">2. Requirements</a><a href="roles.html">3. Roles</a><a href="confirm.html">4. Review</a><a class="current" href="application.html">5. Application</a></div>
 <section class="section">
-<h2>Your selected role</h2>
-<p id="role-display">No role selected. Return to the roles page and choose one.</p>
+<h2>Your selected role</h2><p id="role-display">No role selected. Return to the roles page and choose one.</p>
 <h2>About you</h2>
 <form id="application-form">
 <label for="display-name">What name should the team use for you?</label>
 <input id="display-name" name="display_name" type="text" autocomplete="nickname" autocapitalize="words" maxlength="60" required placeholder="Your chosen display name">
 <label for="age">Age range</label>
-<select id="age" name="age_range" required>
-<option value="">Choose an age range</option><option>13–15</option><option>16–17</option><option>18 or older</option>
-</select>
-<label for="reason">Why do you want to join Beyond the Horizon?</label>
-<textarea id="reason" name="motivation" maxlength="2000" required placeholder="Tell us what interests you about the project and the role you chose."></textarea>
+<select id="age" name="age_range" required><option value="">Choose an age range</option><option>13–15</option><option>16–17</option><option>18 or older</option></select>
+<label for="reason">Why do you want this role, and what skills or experience would you bring?</label>
+<textarea id="reason" name="motivation" maxlength="2000" required placeholder="Include projects you've tried, tools you're learning, or skills you'd bring. It's okay to be a beginner."></textarea>
 <h2>Tools you use</h2>
 <p>Select the tools you already use or are learning. You can select more than one.</p>
 <div class="check-list">
@@ -34,35 +31,29 @@
 <label><input type="checkbox" name="tools" value="Audio editing tools"> Audio editing tools</label>
 <label><input type="checkbox" name="tools" value="Other tools"> Other tools</label>
 </div>
-<label for="other-tools">Other tools (optional)</label>
-<input id="other-tools" name="other_tools" type="text" autocapitalize="words" maxlength="200" placeholder="Type any other tools you use">
-<label for="experience">What experience do you have with your chosen role and these tools?</label>
-<textarea id="experience" name="experience" maxlength="1500" placeholder="You can describe projects you've worked on or skills you're learning."></textarea>
+<label for="other-tools" id="other-tools-label" hidden>Which other tools do you use?</label>
+<input id="other-tools" name="other_tools" type="text" autocapitalize="words" maxlength="200" placeholder="Name the other tools" hidden>
 <h2>Preferred contact method</h2>
 <label for="contact-method">How should we contact you about your application?</label>
-<select id="contact-method" name="contact_method" required>
-<option value="">Choose a contact method</option><option value="Email">Email</option><option value="Discord">Discord</option><option value="Other">Other</option>
-</select>
-<label for="other-contact" id="other-contact-label" hidden>If you selected Other, type your preferred method here</label>
-<input id="other-contact" name="other_contact_method" type="text" maxlength="80" placeholder="Type another contact method" hidden>
+<select id="contact-method" name="contact_method" required><option value="">Choose a contact method</option><option value="Email">Email</option><option value="Discord">Discord</option><option value="Other">Other</option></select>
+<label for="other-contact" id="other-contact-label" hidden>Which other contact method do you prefer?</label>
+<input id="other-contact" name="other_contact_method" type="text" maxlength="80" placeholder="Name the contact method" hidden>
 <label for="contact-detail">Contact detail for your chosen method</label>
 <input id="contact-detail" name="contact_detail" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="160" required placeholder="Email address or Discord username">
 <p class="small">Only share a contact detail you have permission to provide. Do not enter a phone number, home address, password or other sensitive information. Applicants under 18 should have a parent or guardian review the contact method before sharing it.</p>
 <h2>Privacy and guardian review</h2>
-<p>Read the <a href="privacy.html">privacy and applicant safety draft</a> before applying. It explains what information the preview asks for and what still needs to be agreed before recruitment opens.</p>
+<p>Read the <a href="privacy.html">privacy and applicant safety draft</a> before applying.</p>
 <label class="checkbox-consent"><input id="privacy-ack" type="checkbox" name="privacy_acknowledged" value="yes" required style="width:auto"> I have read the privacy information, and a parent or guardian has reviewed the contact and privacy arrangements with me.</label>
 <div class="note"><p><strong>Applications are not open yet.</strong> This form is being prepared. Do not enter real personal information or try to submit an application until the project owner confirms that applications are open and provides the full privacy information.</p></div>
 <button id="submit-application" class="button" type="submit" disabled>Applications not open yet</button>
 <p class="small" id="form-status" aria-live="polite">This is a preview. No application will be accepted until recruitment is formally opened.</p>
 </form>
-<a class="button secondary" href="confirm.html">Back to confirmation</a>
+<a class="button secondary" href="confirm.html">Back to role review</a>
 </section>
 </main>
 <footer>Beyond the Horizon · Development recruitment</footer>
 <script>
 const API = "https://beyond-the-horizon-applications.pagey101212.workers.dev";
-// Keep this false until the privacy arrangements have been approved by a parent/guardian
-// and the project owner has formally decided to open recruitment.
 const PUBLIC_INTAKE_APPROVED = false;
 const params = new URLSearchParams(location.search);
 const selectedRole = params.get("role") || sessionStorage.getItem("bthRole") || "";
@@ -73,81 +64,48 @@ const status = document.getElementById("form-status");
 const method = document.getElementById("contact-method");
 const other = document.getElementById("other-contact");
 const otherLabel = document.getElementById("other-contact-label");
+const otherTools = document.getElementById("other-tools");
+const otherToolsLabel = document.getElementById("other-tools-label");
 roleDisplay.textContent = selectedRole || "No role selected. Return to the roles page and choose one.";
-function updateOtherContact() {
-  const show = method.value === "Other";
-  other.hidden = !show;
-  otherLabel.hidden = !show;
-  other.required = show;
+function updateConditionalFields() {
+  const showContact = method.value === "Other";
+  other.hidden = !showContact; otherLabel.hidden = !showContact; other.required = showContact;
+  const showTools = form.querySelector('input[name="tools"][value="Other tools"]').checked;
+  otherTools.hidden = !showTools; otherToolsLabel.hidden = !showTools; otherTools.required = showTools;
 }
-method.addEventListener("change", updateOtherContact);
-updateOtherContact();
-
+method.addEventListener("change", updateConditionalFields);
+form.querySelectorAll('input[name="tools"]').forEach(input => input.addEventListener("change", updateConditionalFields));
+updateConditionalFields();
 async function refreshIntakeStatus() {
   submitButton.disabled = true;
-  if (!PUBLIC_INTAKE_APPROVED) {
-    submitButton.textContent = "Applications not open yet";
-    status.textContent = "Applications are closed while the project privacy and guardian-review arrangements are being finalised. This preview does not send or save your information.";
-    return false;
-  }
+  if (!PUBLIC_INTAKE_APPROVED) { submitButton.textContent = "Applications not open yet"; status.textContent = "Applications are closed while the project privacy and guardian-review arrangements are being finalised. This preview does not send or save your information."; return false; }
   try {
-    const response = await fetch(API + "/api/health", {cache:"no-store"});
-    const data = await response.json();
+    const response = await fetch(API + "/api/health", {cache:"no-store"}); const data = await response.json();
     if (!response.ok || data.intakeEnabled !== true) throw new Error("Recruitment is not open yet.");
-    submitButton.disabled = false;
-    submitButton.textContent = "Submit application";
-    status.textContent = "Recruitment is open. Check your answers before submitting.";
-    return true;
-  } catch {
-    submitButton.textContent = "Applications not open yet";
-    status.textContent = "The application service could not confirm that recruitment is open. Your information has not been sent.";
-    return false;
-  }
+    submitButton.disabled = false; submitButton.textContent = "Submit application"; status.textContent = "Recruitment is open. Check your answers before submitting."; return true;
+  } catch { submitButton.textContent = "Applications not open yet"; status.textContent = "The application service could not confirm that recruitment is open. Your information has not been sent."; return false; }
 }
-
-form.addEventListener("submit", async (event) => {
+form.addEventListener("submit", async event => {
   event.preventDefault();
   if (submitButton.disabled || !PUBLIC_INTAKE_APPROVED) return;
-  if (!selectedRole) {
-    status.textContent = "Choose a role before submitting.";
-    return;
-  }
+  if (!selectedRole) { status.textContent = "Choose a role before submitting."; return; }
   if (!form.reportValidity()) return;
-  submitButton.disabled = true;
-  status.textContent = "Checking the application service…";
+  submitButton.disabled = true; status.textContent = "Checking the application service…";
   try {
-    const healthResponse = await fetch(API + "/api/health", {cache:"no-store"});
-    const health = await healthResponse.json();
+    const healthResponse = await fetch(API + "/api/health", {cache:"no-store"}); const health = await healthResponse.json();
     if (!healthResponse.ok || health.intakeEnabled !== true) throw new Error("Applications have closed. Nothing was submitted.");
     const payload = {
-      display_name: form.elements.display_name.value.trim(),
-      age_range: form.elements.age_range.value,
-      chosen_role: selectedRole,
+      display_name: form.elements.display_name.value.trim(), age_range: form.elements.age_range.value, chosen_role: selectedRole,
       tools: Array.from(form.querySelectorAll('input[name="tools"]:checked')).map(input => input.value),
-      other_tools: form.elements.other_tools.value.trim(),
-      experience: form.elements.experience.value.trim(),
-      motivation: form.elements.motivation.value.trim(),
-      contact_method: form.elements.contact_method.value,
-      other_contact_method: form.elements.other_contact_method.value.trim(),
-      contact_detail: form.elements.contact_detail.value.trim(),
-      privacy_acknowledged: document.getElementById("privacy-ack").checked
+      other_tools: form.elements.other_tools.value.trim(), experience: "", motivation: form.elements.motivation.value.trim(),
+      contact_method: form.elements.contact_method.value, other_contact_method: form.elements.other_contact_method.value.trim(),
+      contact_detail: form.elements.contact_detail.value.trim(), privacy_acknowledged: document.getElementById("privacy-ack").checked
     };
-    const response = await fetch(API + "/api/applications", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(payload)
-    });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || "The application could not be submitted.");
-    form.reset();
-    updateOtherContact();
-    status.textContent = "Application received. Reference: " + result.application_id + ". No automatic notification is sent; check with the project team using the agreed contact method.";
-  } catch (error) {
-    status.textContent = error.message || "The application could not be submitted. Please try again later.";
-  } finally {
-    submitButton.disabled = true;
-    await refreshIntakeStatus();
-  }
+    const response = await fetch(API + "/api/applications", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    const result = await response.json(); if (!response.ok) throw new Error(result.error || "The application could not be submitted.");
+    form.reset(); updateConditionalFields(); status.textContent = "Application received. Reference: " + result.application_id + ". No automatic notification is sent; check with the project team using the agreed contact method.";
+  } catch (error) { status.textContent = error.message || "The application could not be submitted. Please try again later."; }
+  finally { submitButton.disabled = true; await refreshIntakeStatus(); }
 });
 refreshIntakeStatus();
 </script>
