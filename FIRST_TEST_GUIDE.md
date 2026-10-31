@@ -1,14 +1,14 @@
 # Beyond the Horizon — first website test
 
 **Test type:** Preview / device, navigation and isolated fictional submission test  
-**Status:** Test message field prepared; end-to-end browser verification still required  
-**Important:** The test submission form and test dashboard use a temporary shared passcode. Production recruitment remains closed.
+**Status:** Normal-style test application form published without an applicant PIN; end-to-end browser verification still required  
+**Important:** The test application form is open for fictional test submissions only. The separate test admin dashboard remains passcode-protected. Production recruitment remains closed.
 
 ## Safety rules
 - Use only the public preview website and isolated test pages.
 - Do not enter real names, ages, email addresses, Discord details, phone numbers, school details, passwords or other personal information.
 - Do not ask friends or applicants to submit applications during this test.
-- The fixed fictional identity is `TEST APPLICANT`. The message field accepts any non-empty text up to 120 characters so gibberish can be tested; use made-up text only, never personal details.
+- The fixed fictional identity is `TEST APPLICANT`. Fill the form with made-up test values only. The message field accepts fictional text up to 120 characters; never enter real personal or contact details.
 - Do not share screenshots that show personal browser information, account names or private messages.
 
 ## Test devices
@@ -57,17 +57,17 @@ Checks:
 - [ ] The selected role carries through to the application preview.
 - [ ] The privacy draft link opens.
 
-## Test 3 — PIN-protected isolated submission
+## Test 3 — open isolated test submission
 1. From the roles page, choose a role.
 2. On the confirmation page, use **Run isolated test submission**.
-3. Enter the temporary test passcode on the lock screen.
+3. The test application form opens directly; there is no applicant PIN screen.
 4. Confirm that the selected role is carried into the test form.
-5. Keep the fixed fictional test identity and type made-up text such as `hello123` in the message box.
+5. Fill the form with fictional values only. The display name is fixed as `TEST APPLICANT`.
 6. Tick the test-data acknowledgement and submit once.
 7. Record the returned test ID.
 8. Verify the record exists in BTH_FIRST_TEST_DB, not the production database.
 
-The test Worker checks the passcode on the server for both unlock and submission. The message field is stored as a test message and accepts any non-empty text up to 120 characters. The temporary passcode is currently hardcoded in the isolated test Worker for this test only. It is not in the public GitHub website files. Anyone with access to the Cloudflare Worker source can see it, so it must be replaced with a Cloudflare secret before real recruitment or real personal data is ever accepted.
+The test submission endpoint accepts the normal-style form without an applicant PIN. It is restricted to the isolated test Worker and test database, uses a fixed fictional display name, validates role and age-range values, and caps the test database at 100 records. This is not a real recruitment endpoint. Never enter real personal or contact information.
 
 ## Test 4 — test dashboard
 1. Open the isolated test admin dashboard.
@@ -78,18 +78,16 @@ The test Worker checks the passcode on the server for both unlock and submission
 
 The same passcode protects the isolated test dashboard's read, status-update and delete routes. There is no separate admin token in this test setup. This is a temporary shared-PIN arrangement, not production-grade account security.
 
-## Test 5 — application preview controls
-Use fictional placeholder text only, such as TEST ONLY. Do not enter real contact details.
+## Test 5 — normal-style test form controls
+Use fictional placeholder text only. Do not enter real contact details.
 - [ ] The fixed fictional test identity is displayed.
-- [ ] The message box accepts made-up text such as `hello123` without requiring a special prefix.
 - [ ] Age-range selector opens and options are readable.
-- [ ] Text areas are usable on the device keyboard.
+- [ ] Motivation and experience text areas accept fictional test text.
 - [ ] Tool checkboxes are large enough to tap.
-- [ ] Choosing Other for contact reveals the extra method field.
-- [ ] Choosing Email or Discord hides the extra method field.
-- [ ] Privacy acknowledgement checkbox is easy to tap.
-- [ ] The Submit button remains disabled and says applications are not open.
-- [ ] The page clearly explains that this is a preview and does not accept applications.
+- [ ] Other tools field accepts fictional test text.
+- [ ] Contact method and test message fields work.
+- [ ] Privacy/test acknowledgement checkbox is easy to tap.
+- [ ] Submit button sends to the isolated test database and returns a test ID.
 
 ## Test 6 — report issues
 For each issue, record:
@@ -103,6 +101,6 @@ For each issue, record:
 Do not send passwords, access tokens or private contact information in a bug report.
 
 ## What this first test does not prove
-This test checks page layout, navigation, passcode protection, and the isolated fictional submission workflow. It does not prove that real applicant records can be safely submitted, stored, reviewed or deleted.
+This test checks page layout, navigation, and the isolated fictional submission workflow. The admin dashboard remains passcode-protected. It does not prove that real applicant records can be safely submitted, stored, reviewed or deleted.
 
 The production Worker remains intake-disabled and the production database must not be used for test submissions. Keep real recruitment closed until a parent/guardian has reviewed the privacy arrangements and the temporary test PIN has been replaced with a properly managed secret.
