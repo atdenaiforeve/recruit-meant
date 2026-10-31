@@ -74,7 +74,7 @@ function renderApplication(app) {
   card.className = "admin-card";
   addText(card, "h3", app.display_name + " — " + app.chosen_role);
   addText(card, "p", "Status: " + app.status + " · Submitted: " + app.created_at, "admin-meta");
-  field(card, "Age range", app.age_range);
+  field(card, "Roblox username", app.roblox_username);\n  field(card, "Age range", app.age_range);
   field(card, "Motivation", app.motivation);
   field(card, "Tools", (JSON.parse(app.tools_json || "[]")).join(", "));
   field(card, "Other tools", app.other_tools);
