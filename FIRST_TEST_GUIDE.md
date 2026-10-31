@@ -1,8 +1,8 @@
 # Beyond the Horizon — first website test
 
 **Test type:** Preview / device and navigation test  
-**Status:** Ready for manual testing  
-**Important:** This is not an application-submission test. Recruitment remains closed.
+**Status:** Ready for manual testing and no-token fictional submission check  
+**Important:** This guide includes a fictional-only submission test against the isolated test Worker/database. It does not open recruitment or use the admin dashboard.
 
 ## Safety rules
 
@@ -66,20 +66,23 @@ Checks:
 - [ ] The selected role carries through to the application preview.
 - [ ] The privacy draft link opens.
 
-## Test 3 — full isolated submission journey
+## Test 3 — isolated submission test (no admin token)
 
 1. From the roles page, choose a role.
 2. On the confirmation page, use **Run isolated test submission**.
 3. Confirm the role is carried into the test form.
 4. Use only the fixed fictional test identity and contact details already filled in.
 5. Tick the test-data acknowledgement and submit once.
-6. Record the returned test ID. The record is stored only in the isolated test database.
-7. After a parent/guardian configures the test Worker's ADMIN_TOKEN secret, open the test admin dashboard, enter the token locally, and load the record.
-8. Change its status, confirm the change, then delete the fictional test record and verify the dashboard is empty.
+6. Record the returned test ID. The record is stored only in `BTH_FIRST_TEST_DB`.
+7. Verify the record exists in the test database using the Cloudflare D1 console/API. Do not use the production database.
 
-**Admin setup is still a required gate:** the dashboard cannot load submissions until the project owner with parent/guardian supervision sets the ADMIN_TOKEN secret on the bth-first-test Worker in Cloudflare. Never put that token in GitHub, a chat message, or a source file.
+**No ADMIN_TOKEN is needed for this submission test.** The test Worker accepts only the fixed fictional name, email, motivation, allowed role and test age range. The admin dashboard remains separate and locked for now.
 
-## Test 4 — application preview controls
+## Test 4 — admin dashboard (later, separate test)
+
+When the project owner is ready to test admin review, configure a fresh `ADMIN_TOKEN` secret on `bth-first-test` in Cloudflare. Then connect the dashboard using that secret, load the test record, update its status, and delete the fictional record and status history. Never put the token in GitHub, a chat message, or a source file. Parent/guardian supervision is recommended for this later setup.
+
+## Test 5 — application preview controls
 
 Use fictional placeholder text only, such as `TEST ONLY`. Do not enter real contact details.
 
@@ -95,7 +98,7 @@ Use fictional placeholder text only, such as `TEST ONLY`. Do not enter real cont
 
 **Do not attempt to submit.** The disabled state is expected and is a pass for this preview test.
 
-## Test 5 — report issues
+## Test 6 — report issues
 
 For each issue, record:
 
