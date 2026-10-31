@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#18231f">
+<title>Private application review | Beyond the Horizon</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.admin-card{border:1px solid #d8e0db;border-radius:12px;padding:16px;margin:14px 0;background:#fff}
+.admin-card h3{margin-top:0}.admin-meta{color:#53645b;font-size:.9rem}
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.admin-actions select{max-width:190px}
+#admin-status{min-height:1.5em}
+pre{white-space:pre-wrap;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="brand">Beyond the Horizon</div><nav aria-label="Main navigation"><a href="index.html">Project</a></nav></div></header>
+<main>
+<div class="hero"><div class="eyebrow">Restricted area · Project administration</div><h1>Application review</h1></div>
+<section class="section">
+<div class="note"><p><strong>Private admin page.</strong> Only use this on a trusted device. Do not share your access token. Applicant information is private and should only be reviewed with an authorised parent/guardian or project supervisor where appropriate.</p></div>
+<label for="admin-token">Admin access token</label>
+<input id="admin-token" type="password" autocomplete="off" placeholder="Enter your private admin token">
+<div class="admin-actions"><button class="button" id="load-applications" type="button">Load applications</button><button class="button secondary" id="clear-token" type="button">Clear token</button></div>
+<p id="admin-status" class="small" aria-live="polite">Admin access has not been configured yet.</p>
+<div id="application-list"></div>
+</section>
+</main>
+<footer>Beyond the Horizon · Private administration</footer>
+<script>
+const API = "https://beyond-the-horizon-applications.pagey101212.workers.dev";
+const tokenInput = document.getElementById("admin-token");
+const statusEl = document.getElementById("admin-status");
+const listEl = document.getElementById("application-list");
+let adminToken = "";
+function addText(parent, tag, text, className) {
+  const el = document.createElement(tag);
+  el.textContent = text == null ? "" : String(text);
+  if (className) el.className = className;
+  parent.appendChild(el);
+  return el;
+}
+function field(parent, label, value) {
+  const p = document.createElement("p");
+  const strong = document.createElement("strong");
+  strong.textContent = label + ": ";
+  p.append(strong, document.createTextNode(value || "Not provided"));
+  parent.appendChild(p);
+}
+async function loadApplications() {
+  adminToken = tokenInput.value.trim();
+  if (!adminToken) { statusEl.textContent = "Enter your admin token."; return; }
+  statusEl.textContent = "Loading applications…";
+  listEl.replaceChildren();
+  try {
+    const response = await fetch(API + "/api/admin/applications", {
+      headers: { "Authorization": "Bearer " + adminToken }
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Could not load applications.");
+    statusEl.textContent = "Loaded " + data.applications.length + " application(s).";
+    if (!data.applications.length) addText(listEl, "p", "No applications have been submitted.");
+    for (const app of data.applications) renderApplication(app);
+  } catch (error) {
+    statusEl.textContent = error.message || "Connection failed.";
+  }
+}
+function renderApplication(app) {
+  const card = document.createElement("article");
+  card.className = "admin-card";
+  addText(card, "h3", app.display_name + " — " + app.chosen_role);
+  addText(card, "p", "Status: " + app.status + " · Submitted: " + app.created_at, "admin-meta");
+  field(card, "Age range", app.age_range);
+  field(card, "Motivation", app.motivation);
+  field(card, "Tools", (JSON.parse(app.tools_json || "[]")).join(", "));
+  field(card, "Other tools", app.other_tools);
+  field(card, "Experience", app.experience);
+  field(card, "Preferred contact", app.contact_method === "Other" ? app.other_contact_method : app.contact_method);
+  field(card, "Contact detail", app.contact_detail);
+  const actions = document.createElement("div");
+  actions.className = "admin-actions";
+  const select = document.createElement("select");
+  for (const value of ["Pending", "Approved", "Not approved"]) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    if (value === app.status) option.selected = true;
+    select.appendChild(option);
+  }
+  const save = document.createElement("button");
+  save.type = "button";
+  save.className = "button";
+  save.textContent = "Save status";
+  save.addEventListener("click", async () => {
+    save.disabled = true;
+    try {
+      const response = await fetch(API + "/api/admin/applications/" + encodeURIComponent(app.id), {
+        method: "PATCH",
+        headers: {"Authorization":"Bearer " + adminToken,"Content-Type":"application/json"},
+        body: JSON.stringify({status:select.value})
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Could not update status.");
+      statusEl.textContent = "Status updated for " + app.display_name + ".";
+      app.status = data.status;
+      card.querySelector(".admin-meta").textContent = "Status: " + app.status + " · Submitted: " + app.created_at;
+    } catch (error) {
+      statusEl.textContent = error.message || "Could not update status.";
+    } finally { save.disabled = false; }
+  });
+  actions.append(select, save);
+  card.appendChild(actions);
+  listEl.appendChild(card);
+}
+document.getElementById("load-applications").addEventListener("click", loadApplications);
+document.getElementById("clear-token").addEventListener("click", () => {
+  adminToken = "";
+  tokenInput.value = "";
+  listEl.replaceChildren();
+  statusEl.textContent = "Admin token cleared from this page.";
+});
+</script>
+</body>
+</html>
