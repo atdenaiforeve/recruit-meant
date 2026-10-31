@@ -78,7 +78,6 @@ function renderApplication(app) {
   field(card, "Motivation", app.motivation);
   field(card, "Tools", (JSON.parse(app.tools_json || "[]")).join(", "));
   field(card, "Other tools", app.other_tools);
-  field(card, "Experience", app.experience);
   field(card, "Preferred contact", app.contact_method === "Other" ? app.other_contact_method : app.contact_method);
   field(card, "Contact detail", app.contact_detail);
   const actions = document.createElement("div");
