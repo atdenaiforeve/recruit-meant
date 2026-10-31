@@ -1,21 +1,17 @@
 # Beyond the Horizon — first website test
 
-**Test type:** Preview / device and navigation test  
-**Status:** Ready for manual testing and no-token fictional submission check  
-**Important:** This guide includes a fictional-only submission test against the isolated test Worker/database. It does not open recruitment or use the admin dashboard.
+**Test type:** Preview / device, navigation and isolated fictional submission test  
+**Status:** Ready for manual testing  
+**Important:** The test submission form and test dashboard use a temporary shared passcode. Production recruitment remains closed.
 
 ## Safety rules
-
-- Use only the public preview website.
+- Use only the public preview website and isolated test pages.
 - Do not enter real names, ages, email addresses, Discord details, phone numbers, school details, passwords or other personal information.
 - Do not ask friends or applicants to submit applications during this test.
-- The Submit button is intentionally disabled. Do not try to bypass it.
+- Only the fixed fictional test identity and contact details are accepted by the test API.
 - Do not share screenshots that show personal browser information, account names or private messages.
 
 ## Test devices
-
-Test whichever devices are available:
-
 - [ ] Android phone — portrait
 - [ ] Android phone — landscape
 - [ ] iPhone — portrait / landscape, if available
@@ -26,7 +22,6 @@ Test whichever devices are available:
 A device not available for testing should remain marked as **not tested**, not passed.
 
 ## Test links
-
 - [Project overview](https://atdenaiforeve.github.io/recruit-meant/)
 - [Requirements](https://atdenaiforeve.github.io/recruit-meant/requirements.html)
 - [Roles](https://atdenaiforeve.github.io/recruit-meant/roles.html)
@@ -36,9 +31,7 @@ A device not available for testing should remain marked as **not tested**, not p
 - [Privacy draft](https://atdenaiforeve.github.io/recruit-meant/privacy.html)
 
 ## Test 1 — page layout
-
 On each available device:
-
 - [ ] The page loads without an error.
 - [ ] The site title and navigation are readable.
 - [ ] No text or controls are cut off.
@@ -48,7 +41,6 @@ On each available device:
 - [ ] The page works in portrait and landscape where supported.
 
 ## Test 2 — recruitment journey
-
 1. Open the project overview.
 2. Follow **Continue to requirements**.
 3. Open the roles page.
@@ -59,49 +51,47 @@ On each available device:
 8. Confirm that the application preview displays the same selected role.
 
 Checks:
-
 - [ ] Navigation works between all public pages.
 - [ ] Role descriptions expand and collapse.
 - [ ] The selected role carries through to confirmation.
 - [ ] The selected role carries through to the application preview.
 - [ ] The privacy draft link opens.
 
-## Test 3 — isolated submission test (no admin token)
-
+## Test 3 — PIN-protected isolated submission
 1. From the roles page, choose a role.
 2. On the confirmation page, use **Run isolated test submission**.
-3. Confirm the role is carried into the test form.
-4. Use only the fixed fictional test identity and contact details already filled in.
-5. Tick the test-data acknowledgement and submit once.
-6. Record the returned test ID. The record is stored only in `BTH_FIRST_TEST_DB`.
-7. Verify the record exists in the test database using the Cloudflare D1 console/API. Do not use the production database.
+3. Enter the temporary test passcode on the lock screen.
+4. Confirm that the selected role is carried into the test form.
+5. Use only the fixed fictional test identity and contact details already filled in.
+6. Tick the test-data acknowledgement and submit once.
+7. Record the returned test ID.
+8. Verify the record exists in BTH_FIRST_TEST_DB, not the production database.
 
-**No ADMIN_TOKEN is needed for this submission test.** The test Worker accepts only the fixed fictional name, email, motivation, allowed role and test age range. The admin dashboard remains separate and locked for now.
+The test Worker checks the passcode on the server for both unlock and submission. The temporary passcode is currently hardcoded in the isolated test Worker for this test only. It is not in the public GitHub website files. Anyone with access to the Cloudflare Worker source can see it, so it must be replaced with a Cloudflare secret before real recruitment or real personal data is ever accepted.
 
-## Test 4 — admin dashboard (later, separate test)
+## Test 4 — test dashboard
+1. Open the isolated test admin dashboard.
+2. Enter the same temporary test passcode.
+3. Load the fictional test submission.
+4. Change its status if needed.
+5. Delete the fictional test record and its status history when finished.
 
-When the project owner is ready to test admin review, configure a fresh `ADMIN_TOKEN` secret on `bth-first-test` in Cloudflare. Then connect the dashboard using that secret, load the test record, update its status, and delete the fictional record and status history. Never put the token in GitHub, a chat message, or a source file. Parent/guardian supervision is recommended for this later setup.
+The same passcode protects the isolated test dashboard's read, status-update and delete routes. There is no separate admin token in this test setup. This is a temporary shared-PIN arrangement, not production-grade account security.
 
 ## Test 5 — application preview controls
-
-Use fictional placeholder text only, such as `TEST ONLY`. Do not enter real contact details.
-
+Use fictional placeholder text only, such as TEST ONLY. Do not enter real contact details.
 - [ ] Name field is easy to select and type into.
 - [ ] Age-range selector opens and options are readable.
 - [ ] Text areas are usable on the device keyboard.
 - [ ] Tool checkboxes are large enough to tap.
-- [ ] Choosing **Other** for contact reveals the extra method field.
+- [ ] Choosing Other for contact reveals the extra method field.
 - [ ] Choosing Email or Discord hides the extra method field.
 - [ ] Privacy acknowledgement checkbox is easy to tap.
 - [ ] The Submit button remains disabled and says applications are not open.
 - [ ] The page clearly explains that this is a preview and does not accept applications.
 
-**Do not attempt to submit.** The disabled state is expected and is a pass for this preview test.
-
 ## Test 6 — report issues
-
 For each issue, record:
-
 - Device type and approximate screen size
 - Browser name
 - Page URL
@@ -112,9 +102,6 @@ For each issue, record:
 Do not send passwords, access tokens or private contact information in a bug report.
 
 ## What this first test does not prove
+This test checks page layout, navigation, passcode protection, and the isolated fictional submission workflow. It does not prove that real applicant records can be safely submitted, stored, reviewed or deleted.
 
-This test checks the public website's appearance, navigation and preview controls. It does not prove that application records can be safely submitted, stored, reviewed or deleted.
-
-The production Worker is still configured with intake disabled. Its admin token is not configured. The production database must not be used for test submissions.
-
-Before a separate end-to-end test, a parent/guardian should review the plan and the project needs an isolated test database and test Worker, a supervised admin access setup, and a way to remove test records. Keep real recruitment closed until that separate test is complete and the privacy arrangements are approved.
+The production Worker remains intake-disabled and the production database must not be used for test submissions. Keep real recruitment closed until a parent/guardian has reviewed the privacy arrangements and the temporary test PIN has been replaced with a properly managed secret.
