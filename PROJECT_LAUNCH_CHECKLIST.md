@@ -19,6 +19,10 @@ This checklist is for the project owner and the parent/guardian helping supervis
 - [x] GitHub Pages live site and latest page updates confirmed by the project owner.
 - [x] Responsive phone and tablet styling added to the application page and shared stylesheet.
 - [ ] Manual phone/tablet/desktop preview test completed using FIRST_TEST_GUIDE.md.
+- [x] Separate fictional-only test database and test Worker created; production intake remains disabled.
+- [x] Test form and test admin dashboard pages added; the form only accepts fixed fictional identity/contact values.
+- [ ] Parent/guardian configures ADMIN_TOKEN as a secret on the isolated test Worker before dashboard testing.
+- [ ] Run one complete fictional submission → dashboard review → status update → deletion test.
 - [ ] Worker health endpoint has been tested from a browser; the web check could not access the endpoint.
 
 ## Required before accepting real applications
