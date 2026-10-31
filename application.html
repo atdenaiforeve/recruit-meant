@@ -50,22 +50,30 @@
 <p class="small">Only share a contact detail you have permission to provide. Do not enter a phone number, home address, password or other sensitive information. Applicants under 18 should have a parent or guardian review the contact method before sharing it.</p>
 <h2>Privacy and guardian review</h2>
 <p>Read the <a href="privacy.html">privacy and applicant safety draft</a> before applying. It explains what information the preview asks for and what still needs to be agreed before recruitment opens.</p>
-<label><input type="checkbox" name="privacy_acknowledged" value="yes" required style="width:auto"> I have read the privacy information, and a parent or guardian has reviewed the contact and privacy arrangements with me.</label>
+<label><input id="privacy-ack" type="checkbox" name="privacy_acknowledged" value="yes" required style="width:auto"> I have read the privacy information, and a parent or guardian has reviewed the contact and privacy arrangements with me.</label>
 <div class="note"><p><strong>Applications are not open yet.</strong> This form is being prepared. Do not enter real personal information or try to submit an application until the project owner confirms that applications are open and provides the full privacy information.</p></div>
-<button class="button" type="button" disabled>Applications not open yet</button>
-<p class="small" id="form-status" aria-live="polite">Your selections are only shown in this preview and are not being submitted or saved.</p>
+<button id="submit-application" class="button" type="submit" disabled>Applications not open yet</button>
+<p class="small" id="form-status" aria-live="polite">This is a preview. No application will be accepted until recruitment is formally opened.</p>
 </form>
 <a class="button secondary" href="confirm.html">Back to confirmation</a>
 </section>
 </main>
 <footer>Beyond the Horizon · Development recruitment</footer>
 <script>
+const API = "https://beyond-the-horizon-applications.pagey101212.workers.dev";
+// Keep this false until the privacy arrangements have been approved by a parent/guardian
+// and the project owner has formally decided to open recruitment.
+const PUBLIC_INTAKE_APPROVED = false;
 const params = new URLSearchParams(location.search);
 const selectedRole = params.get("role") || sessionStorage.getItem("bthRole") || "";
-document.getElementById("role-display").textContent = selectedRole || "No role selected. Return to the roles page and choose one.";
+const roleDisplay = document.getElementById("role-display");
+const form = document.getElementById("application-form");
+const submitButton = document.getElementById("submit-application");
+const status = document.getElementById("form-status");
 const method = document.getElementById("contact-method");
 const other = document.getElementById("other-contact");
 const otherLabel = document.getElementById("other-contact-label");
+roleDisplay.textContent = selectedRole || "No role selected. Return to the roles page and choose one.";
 function updateOtherContact() {
   const show = method.value === "Other";
   other.hidden = !show;
@@ -74,6 +82,74 @@ function updateOtherContact() {
 }
 method.addEventListener("change", updateOtherContact);
 updateOtherContact();
+
+async function refreshIntakeStatus() {
+  submitButton.disabled = true;
+  if (!PUBLIC_INTAKE_APPROVED) {
+    submitButton.textContent = "Applications not open yet";
+    status.textContent = "Applications are closed while the project privacy and guardian-review arrangements are being finalised. This preview does not send or save your information.";
+    return false;
+  }
+  try {
+    const response = await fetch(API + "/api/health", {cache:"no-store"});
+    const data = await response.json();
+    if (!response.ok || data.intakeEnabled !== true) throw new Error("Recruitment is not open yet.");
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit application";
+    status.textContent = "Recruitment is open. Check your answers before submitting.";
+    return true;
+  } catch {
+    submitButton.textContent = "Applications not open yet";
+    status.textContent = "The application service could not confirm that recruitment is open. Your information has not been sent.";
+    return false;
+  }
+}
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (submitButton.disabled || !PUBLIC_INTAKE_APPROVED) return;
+  if (!selectedRole) {
+    status.textContent = "Choose a role before submitting.";
+    return;
+  }
+  if (!form.reportValidity()) return;
+  submitButton.disabled = true;
+  status.textContent = "Checking the application service…";
+  try {
+    const healthResponse = await fetch(API + "/api/health", {cache:"no-store"});
+    const health = await healthResponse.json();
+    if (!healthResponse.ok || health.intakeEnabled !== true) throw new Error("Applications have closed. Nothing was submitted.");
+    const payload = {
+      display_name: form.elements.display_name.value.trim(),
+      age_range: form.elements.age_range.value,
+      chosen_role: selectedRole,
+      tools: Array.from(form.querySelectorAll('input[name="tools"]:checked')).map(input => input.value),
+      other_tools: form.elements.other_tools.value.trim(),
+      experience: form.elements.experience.value.trim(),
+      motivation: form.elements.motivation.value.trim(),
+      contact_method: form.elements.contact_method.value,
+      other_contact_method: form.elements.other_contact_method.value.trim(),
+      contact_detail: form.elements.contact_detail.value.trim(),
+      privacy_acknowledged: document.getElementById("privacy-ack").checked
+    };
+    const response = await fetch(API + "/api/applications", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "The application could not be submitted.");
+    form.reset();
+    updateOtherContact();
+    status.textContent = "Application received. Reference: " + result.application_id + ". No automatic notification is sent; check with the project team using the agreed contact method.";
+  } catch (error) {
+    status.textContent = error.message || "The application could not be submitted. Please try again later.";
+  } finally {
+    submitButton.disabled = true;
+    await refreshIntakeStatus();
+  }
+});
+refreshIntakeStatus();
 </script>
 </body>
 </html>
