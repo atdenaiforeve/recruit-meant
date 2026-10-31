@@ -10,20 +10,20 @@ This checklist is for the project owner and the parent/guardian helping supervis
 - [x] Every role-selection link carries the selected role forward.
 - [x] Application preview contains the agreed contact choices: Email, Discord, Other.
 - [x] The preview warns applicants not to provide phone numbers, home addresses, passwords or other sensitive information.
-- [x] Cloudflare D1 database and application/status tables exist.
-- [x] Cloudflare Worker is connected to the D1 database.
-- [x] Application intake is disabled in the Worker.
-- [x] No admin token is configured yet.
-- [x] The database currently contains zero applications and zero status events.
+- [x] Production Cloudflare D1 database and application/status tables exist.
+- [x] Production Cloudflare Worker is connected to the production D1 database.
+- [x] Production application intake is disabled.
+- [x] Production admin access is not configured.
+- [x] Production database currently contains zero applications and zero status events.
 - [x] Worker invocation logs and persisted logs are disabled.
 - [x] GitHub Pages live site and latest page updates confirmed by the project owner.
 - [x] Responsive phone and tablet styling added to the application page and shared stylesheet.
 - [ ] Manual phone/tablet/desktop preview test completed using FIRST_TEST_GUIDE.md.
 - [x] Separate fictional-only test database and test Worker created; production intake remains disabled.
-- [x] Test form and test admin dashboard pages added; the form only accepts fixed fictional identity/contact values.
-- [ ] Run the fictional-only submission test without an admin token and verify the record in the isolated test database.
-- [ ] Later, before dashboard review, configure a fresh ADMIN_TOKEN secret on the isolated test Worker with appropriate supervision.
-- [ ] Run the separate admin test: dashboard review → status update → deletion.
+- [x] Test form and test admin dashboard use a temporary shared PIN; the test Worker checks it server-side.
+- [x] Isolated test submission and admin routes no longer require an ADMIN_TOKEN.
+- [ ] Run the fictional-only submission test and verify the record in the isolated test database.
+- [ ] Run the separate test dashboard check: review → status update → deletion.
 - [ ] Worker health endpoint has been tested from a browser; the web check could not access the endpoint.
 
 ## Required before accepting real applications
@@ -37,8 +37,8 @@ This checklist is for the project owner and the parent/guardian helping supervis
    - how applicants or guardians can request access, correction or deletion;
    - how deletion requests will be carried out.
 3. Decide which contact methods are appropriate for applicants under 18. Do not require an applicant to provide a personal phone number, home address, school, password or exact birth date.
-4. Configure the admin token as a Cloudflare Worker secret using the Cloudflare dashboard. Do not put it in GitHub, the website, screenshots, source code or chat. A parent/guardian should supervise this.
-5. Before any end-to-end test, create an isolated test database and test Worker. Do not submit dummy records to the production database. Add a safe way to delete test records and their status history.
+4. Before real recruitment, replace temporary test access with properly managed production access. Keep production administrator credentials out of GitHub, website files, screenshots and chat. A parent/guardian should supervise account security setup.
+5. Keep test and production environments separate. Do not submit dummy records to the production database. Retain a safe way to delete test records and their status history.
 6. Test the complete flow with dummy information only:
    - submit a test application after the guardian has approved testing;
    - confirm it appears in the private dashboard;
@@ -50,12 +50,14 @@ This checklist is for the project owner and the parent/guardian helping supervis
 
 ## Security reminders
 
-- Keep the admin page unlinked from public navigation; the API token is the actual access control.
-- Never share the admin token or give applicants access to the dashboard.
+- Keep the admin page unlinked from public navigation.
+- The temporary shared PIN is only for fictional test data. It is hardcoded in the isolated test Worker source and can be seen by anyone with access to that Worker in Cloudflare. It is not suitable for real applicant records.
+- Replace the temporary test PIN before real recruitment. Do not reuse it as a personal account password.
+- Never share production administrator credentials or give applicants access to the dashboard.
 - Do not add applicants to the official game, project accounts or shared workspaces until permissions and supervision are agreed.
 - Do not collect more personal information than is genuinely needed.
 - If the privacy arrangements cannot be completed, keep intake disabled.
 
 ## Current launch decision
 
-**NOT READY TO OPEN.** The live site has been confirmed by the project owner and mobile-responsive styling has been added. The manual device test, privacy review, guardian approval, supervised admin setup and isolated end-to-end test remain outstanding.
+**NOT READY TO OPEN.** The live site has been confirmed by the project owner and mobile-responsive styling has been added. The manual device test, privacy review, guardian approval and isolated end-to-end test remain outstanding. Production intake remains disabled.
