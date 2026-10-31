@@ -31,6 +31,8 @@ A device not available for testing should remain marked as **not tested**, not p
 - [Requirements](https://atdenaiforeve.github.io/recruit-meant/requirements.html)
 - [Roles](https://atdenaiforeve.github.io/recruit-meant/roles.html)
 - [Application preview](https://atdenaiforeve.github.io/recruit-meant/application.html)
+- [Isolated test submission form](https://atdenaiforeve.github.io/recruit-meant/test-application.html)
+- [Isolated test admin dashboard](https://atdenaiforeve.github.io/recruit-meant/test-admin.html)
 - [Privacy draft](https://atdenaiforeve.github.io/recruit-meant/privacy.html)
 
 ## Test 1 — page layout
@@ -64,7 +66,20 @@ Checks:
 - [ ] The selected role carries through to the application preview.
 - [ ] The privacy draft link opens.
 
-## Test 3 — application preview controls
+## Test 3 — full isolated submission journey
+
+1. From the roles page, choose a role.
+2. On the confirmation page, use **Run isolated test submission**.
+3. Confirm the role is carried into the test form.
+4. Use only the fixed fictional test identity and contact details already filled in.
+5. Tick the test-data acknowledgement and submit once.
+6. Record the returned test ID. The record is stored only in the isolated test database.
+7. After a parent/guardian configures the test Worker's ADMIN_TOKEN secret, open the test admin dashboard, enter the token locally, and load the record.
+8. Change its status, confirm the change, then delete the fictional test record and verify the dashboard is empty.
+
+**Admin setup is still a required gate:** the dashboard cannot load submissions until the project owner with parent/guardian supervision sets the ADMIN_TOKEN secret on the bth-first-test Worker in Cloudflare. Never put that token in GitHub, a chat message, or a source file.
+
+## Test 4 — application preview controls
 
 Use fictional placeholder text only, such as `TEST ONLY`. Do not enter real contact details.
 
@@ -80,7 +95,7 @@ Use fictional placeholder text only, such as `TEST ONLY`. Do not enter real cont
 
 **Do not attempt to submit.** The disabled state is expected and is a pass for this preview test.
 
-## Test 4 — report issues
+## Test 5 — report issues
 
 For each issue, record:
 
