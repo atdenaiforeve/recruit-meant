@@ -10,6 +10,8 @@ This repository contains the developer recruitment website for the Roblox projec
 - [Role confirmation](confirm.html)
 - [Application preview](application.html)
 - [Privacy and applicant safety draft](privacy.html)
+- [First website test guide](FIRST_TEST_GUIDE.md)
+- [Pre-launch checklist](PROJECT_LAUNCH_CHECKLIST.md)
 
 ## Recruitment status
 
