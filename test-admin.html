@@ -1,82 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#18231f">
-<title>Test admin dashboard | Beyond the Horizon</title>
-<link rel="stylesheet" href="style.css">
-<style>
-.test-banner{background:#fff4d8;border:1px solid #d7b66b;border-left:4px solid #9b6b24;padding:14px 16px;border-radius:6px;margin:16px 0}
-.application{background:#fff;border:1px solid var(--line);border-radius:7px;padding:15px;margin:12px 0;overflow-wrap:anywhere}
-.application h3{margin-bottom:8px}
-.application select{min-height:44px}
-.status-line{font-size:13px;color:var(--muted)}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.actions button{min-height:44px}
-</style>
-</head>
-<body>
-<header><div class="nav"><div class="brand">Beyond the Horizon · Test Admin</div><nav aria-label="Admin navigation"><a href="test-application.html">Test form</a><a href="FIRST_TEST_GUIDE.md">Test guide</a></nav></div></header>
-<main>
-<div class="hero"><div class="eyebrow">Private test dashboard · Noindex</div><h1>Test submissions</h1>
-<p class="intro">This dashboard connects only to the isolated first-test database. It does not show production applications.</p></div>
-<div class="test-banner"><strong>TEST DATA ONLY.</strong> Do not enter or store real applicant information in this environment. The admin token must be set by the project owner with parent/guardian supervision.</div>
-<section class="section">
-<label for="admin-token">Test admin token</label>
-<input id="admin-token" type="password" autocomplete="off" spellcheck="false" placeholder="Enter the token configured in Cloudflare">
-<div class="actions"><button class="button" id="load" type="button">Load test submissions</button><button class="button secondary" id="clear" type="button">Clear token</button></div>
-<p id="status" class="small" aria-live="polite">Admin access is not yet configured. No token is stored by this page.</p>
-<div id="applications" aria-live="polite"></div>
-</section>
-</main>
-<footer>Isolated test environment · Never use this dashboard for real applicant records</footer>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#18231f"><title>Test admin dashboard | Beyond the Horizon</title><link rel="stylesheet" href="style.css"><style>
+.test-banner{background:#fff4d8;border:1px solid #d7b66b;border-left:4px solid #9b6b24;padding:14px 16px;border-radius:6px;margin:16px 0}.application{background:#fff;border:1px solid var(--line);border-radius:7px;padding:15px;margin:12px 0;overflow-wrap:anywhere}.application h3{margin-bottom:8px}.application select{min-height:44px}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{min-height:44px}
+</style></head><body><header><div class="nav"><div class="brand">Beyond the Horizon · Test Admin</div><nav aria-label="Admin navigation"><a href="test-application.html">Test form</a><a href="FIRST_TEST_GUIDE.md">Test guide</a></nav></div></header>
+<main><div class="hero"><div class="eyebrow">Private test dashboard · Noindex</div><h1>Test submissions</h1><p class="intro">This dashboard connects only to the isolated first-test database. It does not show production applications.</p></div>
+<div class="test-banner"><strong>TEST DATA ONLY.</strong> This temporary PIN protects the isolated test dashboard. Never use this temporary setup for real applicant records.</div>
+<section class="section"><label for="test-pin">Test passcode</label><input id="test-pin" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Enter test passcode"><div class="actions"><button class="button" id="load" type="button">Unlock and load submissions</button><button class="button secondary" id="clear" type="button">Lock dashboard</button></div><p id="status" class="small" aria-live="polite">Dashboard is locked.</p><div id="applications" aria-live="polite"></div></section></main><footer>Isolated test environment · Never use this dashboard for real applicant records</footer>
 <script>
-const API="https://bth-first-test.pagey101212.workers.dev";
-let token="";
-const status=document.getElementById("status");
-const list=document.getElementById("applications");
-const tokenInput=document.getElementById("admin-token");
-function auth(){return {"authorization":"Bearer "+token,"content-type":"application/json"}}
-function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-async function load(){
- token=tokenInput.value.trim();
- if(!token){status.textContent="Enter the test admin token first.";return}
- status.textContent="Loading test submissions…";list.replaceChildren();
- try{
-  const r=await fetch(API+"/api/admin/applications",{headers:auth()});const d=await r.json();
-  if(!r.ok)throw new Error(d.error||"Could not load submissions");
-  status.textContent="Loaded "+d.applications.length+" fictional test submission(s).";
-  if(!d.applications.length){list.textContent="No test submissions yet.";return}
-  for(const a of d.applications){
-   const card=document.createElement("article");card.className="application";
-   card.innerHTML='<h3>'+escapeHtml(a.display_name)+' — '+escapeHtml(a.chosen_role)+'</h3>'+
-    '<p><strong>Test ID:</strong> '+escapeHtml(a.id)+'</p>'+
-    '<p><strong>Age range:</strong> '+escapeHtml(a.age_range)+' · <strong>Status:</strong> '+escapeHtml(a.status)+'</p>'+
-    '<p><strong>Tools:</strong> '+escapeHtml((JSON.parse(a.tools_json||"[]")).join(", "))+'</p>'+
-    '<p><strong>Motivation:</strong> '+escapeHtml(a.motivation)+'</p>'+
-    '<p><strong>Contact:</strong> '+escapeHtml(a.contact_method)+' · '+escapeHtml(a.contact_detail)+'</p>'+
-    '<div class="actions"><select aria-label="New status"><option>Pending</option><option>Approved</option><option>Not approved</option></select><button class="button update" type="button">Save status</button><button class="button secondary delete" type="button">Delete test record</button></div>';
-   const select=card.querySelector("select");select.value=a.status;
-   card.querySelector(".update").addEventListener("click",async()=>{
-    const u=await fetch(API+"/api/admin/applications/"+encodeURIComponent(a.id),{method:"PATCH",headers:auth(),body:JSON.stringify({status:select.value})});
-    const j=await u.json();if(!u.ok){status.textContent=j.error||"Status update failed";return}
-    status.textContent="Test record status updated to "+j.status+".";load();
-   });
-   card.querySelector(".delete").addEventListener("click",async()=>{
-    if(!confirm("Delete this fictional test record and its status history?"))return;
-    const u=await fetch(API+"/api/admin/applications/"+encodeURIComponent(a.id),{method:"DELETE",headers:auth()});
-    const j=await u.json();if(!u.ok){status.textContent=j.error||"Delete failed";return}
-    status.textContent="Fictional test record deleted.";load();
-   });
-   list.append(card);
-  }
- }catch(e){status.textContent=e.message;list.replaceChildren()}
-}
-document.getElementById("load").addEventListener("click",load);
-document.getElementById("clear").addEventListener("click",()=>{token="";tokenInput.value="";list.replaceChildren();status.textContent="Token cleared from this page."});
-window.addEventListener("pagehide",()=>{token="";tokenInput.value=""});
-</script>
-</body>
-</html>
+const API="https://bth-first-test.pagey101212.workers.dev";let testPin="";const status=document.getElementById("status"),list=document.getElementById("applications"),pinInput=document.getElementById("test-pin");
+function auth(){return {"x-test-pin":testPin,"content-type":"application/json"}}function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function load(){const candidate=pinInput.value;if(!candidate){status.textContent="Enter the test passcode first.";return}testPin=candidate;status.textContent="Checking passcode and loading test submissions…";list.replaceChildren();try{const r=await fetch(API+"/api/admin/applications",{headers:auth()});const d=await r.json();if(!r.ok)throw new Error(d.error||"Could not load submissions");status.textContent="Unlocked. Loaded "+d.applications.length+" fictional test submission(s).";if(!d.applications.length){list.textContent="No test submissions yet.";return}
+for(const a of d.applications){const card=document.createElement("article");card.className="application";card.innerHTML='<h3>'+escapeHtml(a.display_name)+' — '+escapeHtml(a.chosen_role)+'</h3>'+'<p><strong>Test ID:</strong> '+escapeHtml(a.id)+'</p>'+'<p><strong>Age range:</strong> '+escapeHtml(a.age_range)+' · <strong>Status:</strong> '+escapeHtml(a.status)+'</p>'+'<p><strong>Tools:</strong> '+escapeHtml((JSON.parse(a.tools_json||"[]")).join(", "))+'</p>'+'<p><strong>Motivation:</strong> '+escapeHtml(a.motivation)+'</p>'+'<p><strong>Contact:</strong> '+escapeHtml(a.contact_method)+' · '+escapeHtml(a.contact_detail)+'</p>'+'<div class="actions"><select aria-label="New status"><option>Pending</option><option>Approved</option><option>Not approved</option></select><button class="button update" type="button">Save status</button><button class="button secondary delete" type="button">Delete test record</button></div>';const select=card.querySelector("select");select.value=a.status;
+card.querySelector(".update").addEventListener("click",async()=>{const u=await fetch(API+"/api/admin/applications/"+encodeURIComponent(a.id),{method:"PATCH",headers:auth(),body:JSON.stringify({status:select.value})});const j=await u.json();if(!u.ok){status.textContent=j.error||"Status update failed";return}status.textContent="Test record status updated to "+j.status+".";load()});
+card.querySelector(".delete").addEventListener("click",async()=>{if(!confirm("Delete this fictional test record and its status history?"))return;const u=await fetch(API+"/api/admin/applications/"+encodeURIComponent(a.id),{method:"DELETE",headers:auth()});const j=await u.json();if(!u.ok){status.textContent=j.error||"Delete failed";return}status.textContent="Fictional test record deleted.";load()});list.append(card)}}catch(e){testPin="";status.textContent=e.message;list.replaceChildren()}}
+document.getElementById("load").addEventListener("click",load);document.getElementById("clear").addEventListener("click",()=>{testPin="";pinInput.value="";list.replaceChildren();status.textContent="Dashboard locked and passcode cleared."});pinInput.addEventListener("keydown",e=>{if(e.key==="Enter")load()});window.addEventListener("pagehide",()=>{testPin="";pinInput.value=""});
+</script></body></html>
