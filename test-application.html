@@ -13,6 +13,7 @@
 <form id="test-form">
 <label for="display-name">Display name</label><input id="display-name" type="text" value="TEST APPLICANT" readonly class="readonly" aria-describedby="fixed-name-note">
 <p class="small" id="fixed-name-note">This fictional name is fixed so the test cannot be mistaken for a real application.</p>
+<label for="roblox-username">Test Roblox username</label><input id="roblox-username" type="text" value="FAKE_TEST_USER" readonly class="readonly"><p class="small">A fixed fictional username is used for this test. Do not enter your real Roblox username here.</p>
 <label for="age">Test age range</label><select id="age" required><option value="">Choose a test age range</option><option>13–15</option><option>16–17</option><option>18 or older</option></select>
 <label for="motivation">Why would this test applicant want this role, and what skills or experience would they bring?</label>
 <textarea id="motivation" maxlength="2000" required placeholder="Enter a fictional test response."></textarea>
@@ -42,7 +43,7 @@ function setStatus(message,kind=""){status.textContent=message;status.className=
 form.addEventListener("submit",async event=>{
  event.preventDefault();if(!selectedRole){setStatus("Choose a role before submitting.","error");return;}if(!form.reportValidity())return;
  submit.disabled=true;submit.textContent="Submitting test application…";setStatus("Sending fictional test data to the isolated test database…");
- const contactMethod=method.value,payload={display_name:"TEST APPLICANT",age_range:document.getElementById("age").value,chosen_role:selectedRole,tools:Array.from(form.querySelectorAll('input[name="tools"]:checked')).map(x=>x.value),other_tools:otherTools.value.trim(),experience:"",motivation:document.getElementById("motivation").value.trim(),contact_method:contactMethod,other_contact_method:other.value.trim(),contact_detail:document.getElementById("contact-detail").value.trim(),privacy_acknowledged:document.getElementById("privacy-ack").checked};
+ const contactMethod=method.value,payload={display_name:"TEST APPLICANT",roblox_username:"FAKE_TEST_USER",age_range:document.getElementById("age").value,chosen_role:selectedRole,tools:Array.from(form.querySelectorAll('input[name="tools"]:checked')).map(x=>x.value),other_tools:otherTools.value.trim(),experience:"",motivation:document.getElementById("motivation").value.trim(),contact_method:contactMethod,other_contact_method:other.value.trim(),contact_detail:document.getElementById("contact-detail").value.trim(),privacy_acknowledged:document.getElementById("privacy-ack").checked};
  try{const response=await fetch(API+"/api/applications",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(payload)}),data=await response.json();if(!response.ok)throw new Error(data.error||"The test submission could not be saved.");setStatus("Test application submitted successfully. Test ID: "+data.application_id+". It is stored only in the isolated test database.","ok");sessionStorage.setItem("bthTestApplicationId",data.application_id);form.reset();updateConditionalFields();}
  catch(error){setStatus(error.message||"The test submission failed. No successful save was confirmed.","error");}
  finally{submit.disabled=false;submit.textContent="Submit test application";}
