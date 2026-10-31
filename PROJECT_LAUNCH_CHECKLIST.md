@@ -21,8 +21,10 @@ This checklist is for the project owner and the parent/guardian helping supervis
 - [ ] Manual phone/tablet/desktop preview test completed using FIRST_TEST_GUIDE.md.
 - [x] Separate fictional-only test database and test Worker created; production intake remains disabled.
 - [x] Test form and test admin dashboard use a temporary shared PIN; the test Worker checks it server-side.
+- [x] Test message field accepts any non-empty fictional text up to 120 characters without a special prefix; the isolated Worker stores it as the test message.
+- [x] Test dashboard displays the submitted test message and experience field.
 - [x] Isolated test submission and admin routes no longer require an ADMIN_TOKEN.
-- [ ] Run the fictional-only submission test and verify the record in the isolated test database.
+- [ ] Run the fictional-only submission test in a browser and verify the record in the isolated test database. Backend source is deployed and configured; browser runtime submission is not yet verified.
 - [ ] Run the separate test dashboard check: review → status update → deletion.
 - [ ] Worker health endpoint has been tested from a browser; the web check could not access the endpoint.
 
