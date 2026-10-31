@@ -16,8 +16,10 @@ This checklist is for the project owner and the parent/guardian helping supervis
 - [x] No admin token is configured yet.
 - [x] The database currently contains zero applications and zero status events.
 - [x] Worker invocation logs and persisted logs are disabled.
-- [ ] GitHub Pages publishing and the live site have been independently verified.
-- [ ] Worker health endpoint has been tested from a browser.
+- [x] GitHub Pages live site and latest page updates confirmed by the project owner.
+- [x] Responsive phone and tablet styling added to the application page and shared stylesheet.
+- [ ] Manual phone/tablet/desktop preview test completed using FIRST_TEST_GUIDE.md.
+- [ ] Worker health endpoint has been tested from a browser; the web check could not access the endpoint.
 
 ## Required before accepting real applications
 
@@ -31,14 +33,15 @@ This checklist is for the project owner and the parent/guardian helping supervis
    - how deletion requests will be carried out.
 3. Decide which contact methods are appropriate for applicants under 18. Do not require an applicant to provide a personal phone number, home address, school, password or exact birth date.
 4. Configure the admin token as a Cloudflare Worker secret using the Cloudflare dashboard. Do not put it in GitHub, the website, screenshots, source code or chat. A parent/guardian should supervise this.
-5. Test the complete flow with dummy information only:
+5. Before any end-to-end test, create an isolated test database and test Worker. Do not submit dummy records to the production database. Add a safe way to delete test records and their status history.
+6. Test the complete flow with dummy information only:
    - submit a test application after the guardian has approved testing;
    - confirm it appears in the private dashboard;
    - change its status and confirm the change is recorded;
    - delete the test record and its status history.
-6. Verify the public site, API health check, form behaviour and admin access from a browser.
-7. Only after all checks pass, have the responsible adult/project owner deliberately enable intake in Cloudflare and remove the preview-only launch lock in the website code.
-8. Check the dashboard manually as planned. No automated email or notification system is configured.
+7. Verify the public site, API health check, form behaviour and admin access from a browser.
+8. Only after all checks pass, have the responsible adult/project owner deliberately enable intake in Cloudflare and remove the preview-only launch lock in the website code.
+9. Check the dashboard manually as planned. No automated email or notification system is configured.
 
 ## Security reminders
 
@@ -50,4 +53,4 @@ This checklist is for the project owner and the parent/guardian helping supervis
 
 ## Current launch decision
 
-**NOT READY TO OPEN.** The technical foundation is partly in place, but the privacy review, guardian approval, admin access, live-site verification and end-to-end test remain outstanding.
+**NOT READY TO OPEN.** The live site has been confirmed by the project owner and mobile-responsive styling has been added. The manual device test, privacy review, guardian approval, supervised admin setup and isolated end-to-end test remain outstanding.
