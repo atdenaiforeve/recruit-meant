@@ -34,8 +34,8 @@ form textarea{min-height:140px}
 form input[type="checkbox"]{width:22px;height:22px;min-width:22px;min-height:22px;flex:0 0 auto;margin:0 10px 0 0;accent-color:var(--green)}
 .check-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .check-list label{display:flex;align-items:center;gap:0;min-height:48px;margin:0;padding:10px 12px;background:#fff;border:1px solid var(--line);border-radius:6px}
-form label:has(input[type="checkbox"]){display:flex;align-items:flex-start;gap:0;line-height:1.5}
-form label:has(input[type="checkbox"]) input{margin-top:2px}
+.checkbox-consent{display:flex;align-items:flex-start;gap:0;line-height:1.5}
+.checkbox-consent input{margin-top:2px}
 form button[type="submit"]{min-height:48px;cursor:pointer}
 .button{min-height:44px;align-items:center;justify-content:center}
 @media(max-width:700px){
