@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#18231f">
 <title>Final application details | Beyond the Horizon</title>
 <link rel="stylesheet" href="style.css">
@@ -18,7 +18,7 @@
 <h2>About you</h2>
 <form id="application-form">
 <label for="display-name">What name should the team use for you?</label>
-<input id="display-name" name="display_name" maxlength="60" required placeholder="Your chosen display name">
+<input id="display-name" name="display_name" type="text" autocomplete="nickname" autocapitalize="words" maxlength="60" required placeholder="Your chosen display name">
 <label for="age">Age range</label>
 <select id="age" name="age_range" required>
 <option value="">Choose an age range</option><option>13–15</option><option>16–17</option><option>18 or older</option>
@@ -35,7 +35,7 @@
 <label><input type="checkbox" name="tools" value="Other tools"> Other tools</label>
 </div>
 <label for="other-tools">Other tools (optional)</label>
-<input id="other-tools" name="other_tools" maxlength="200" placeholder="Type any other tools you use">
+<input id="other-tools" name="other_tools" type="text" autocapitalize="words" maxlength="200" placeholder="Type any other tools you use">
 <label for="experience">What experience do you have with your chosen role and these tools?</label>
 <textarea id="experience" name="experience" maxlength="1500" placeholder="You can describe projects you've worked on or skills you're learning."></textarea>
 <h2>Preferred contact method</h2>
@@ -44,9 +44,9 @@
 <option value="">Choose a contact method</option><option value="Email">Email</option><option value="Discord">Discord</option><option value="Other">Other</option>
 </select>
 <label for="other-contact" id="other-contact-label" hidden>If you selected Other, type your preferred method here</label>
-<input id="other-contact" name="other_contact_method" maxlength="80" placeholder="Type another contact method" hidden>
+<input id="other-contact" name="other_contact_method" type="text" maxlength="80" placeholder="Type another contact method" hidden>
 <label for="contact-detail">Contact detail for your chosen method</label>
-<input id="contact-detail" name="contact_detail" maxlength="160" required placeholder="Email address or Discord username">
+<input id="contact-detail" name="contact_detail" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="160" required placeholder="Email address or Discord username">
 <p class="small">Only share a contact detail you have permission to provide. Do not enter a phone number, home address, password or other sensitive information. Applicants under 18 should have a parent or guardian review the contact method before sharing it.</p>
 <h2>Privacy and guardian review</h2>
 <p>Read the <a href="privacy.html">privacy and applicant safety draft</a> before applying. It explains what information the preview asks for and what still needs to be agreed before recruitment opens.</p>
