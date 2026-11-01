@@ -4,114 +4,36 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#18231f">
-<title>Final application details | Beyond the Horizon</title>
+<title>Application status | Beyond the Horizon</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header><div class="nav"><div class="brand">Beyond the Horizon</div><nav aria-label="Main navigation"><a href="index.html">Project</a><a href="requirements.html">Requirements</a><a href="roles.html">Roles</a><a href="privacy.html">Privacy draft</a></nav></div></header>
 <main>
-<div class="hero"><div class="eyebrow">Developer recruitment · Step 5 of 5</div><h1>Final application details</h1></div>
+<div class="hero"><div class="eyebrow">Developer recruitment · Step 5 of 5</div><h1>Application status</h1><p class="intro">The final step for Beyond the Horizon recruitment.</p></div>
 <div class="steps"><a href="index.html">1. Project</a><a href="requirements.html">2. Requirements</a><a href="roles.html">3. Roles</a><a href="confirm.html">4. Review</a><a class="current" href="application.html">5. Application</a></div>
 <section class="section">
-<h2>Your selected role</h2><p id="role-display">No role selected. Return to the roles page and choose one.</p>
-<h2>About you</h2>
-<form id="application-form">
-<label for="display-name">What name should the team use for you?</label>
-<input id="display-name" name="display_name" type="text" autocomplete="nickname" autocapitalize="words" maxlength="60" required placeholder="Your chosen display name">
-<label for="roblox-username">What is your Roblox username? (not your display name)</label>
-<input id="roblox-username" name="roblox_username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]{3,20}" required placeholder="Your Roblox username">
-<p class="small">We need your Roblox username to invite you to the Roblox Studio team. Enter only your username — never your password. Ask a parent or guardian to check it before sharing.</p>
-<label for="age">Age range</label>
-<select id="age" name="age_range" required><option value="">Choose an age range</option><option>13–15</option><option>16–17</option><option>18 or older</option></select>
-<label for="reason">Why do you want this role, and what skills or experience would you bring?</label>
-<textarea id="reason" name="motivation" maxlength="2000" required placeholder="Include projects you've tried, tools you're learning, or skills you'd bring. It's okay to be a beginner."></textarea>
-<h2>Tools you use</h2>
-<p>Select the tools you already use or are learning. You can select more than one.</p>
-<div class="check-list">
-<label><input type="checkbox" name="tools" value="Roblox Studio"> Roblox Studio</label>
-<label><input type="checkbox" name="tools" value="Blender"> Blender</label>
-<label><input type="checkbox" name="tools" value="Image editing tools"> Image editing tools</label>
-<label><input type="checkbox" name="tools" value="Audio editing tools"> Audio editing tools</label>
-<label><input type="checkbox" name="tools" value="Other tools"> Other tools</label>
+<h2>Your selected role</h2>
+<p id="role-display">No role selected. Return to the roles page and choose one.</p>
+<div class="note">
+<p><strong>Real applications are not open yet.</strong></p>
+<p>The live submission button is unavailable while the privacy information and parent/guardian review arrangements are being finalised. This page will not collect or send personal information.</p>
 </div>
-<label for="other-tools" id="other-tools-label" hidden>Which other tools do you use?</label>
-<input id="other-tools" name="other_tools" type="text" autocapitalize="words" maxlength="200" placeholder="Name the other tools" hidden>
-<h2>Preferred contact method</h2>
-<label for="contact-method">How should we contact you about your application?</label>
-<select id="contact-method" name="contact_method" required><option value="">Choose a contact method</option><option value="Email">Email</option><option value="Discord">Discord</option><option value="Other">Other</option></select>
-<label for="other-contact" id="other-contact-label" hidden>Which other contact method do you prefer?</label>
-<input id="other-contact" name="other_contact_method" type="text" maxlength="80" placeholder="Name the contact method" hidden>
-<label for="contact-detail">Contact detail for your chosen method</label>
-<input id="contact-detail" name="contact_detail" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="160" required placeholder="Email address or Discord username">
-<p class="small">Only share a contact detail you have permission to provide. Do not enter a phone number, home address, password or other sensitive information. Applicants under 18 should have a parent or guardian review the contact method before sharing it.</p>
-<h2>Privacy and guardian review</h2>
-<p>Read the <a href="privacy.html">privacy and applicant safety draft</a> before applying.</p>
-<label class="checkbox-consent"><input id="privacy-ack" type="checkbox" name="privacy_acknowledged" value="yes" required style="width:auto"> I have read the privacy information, and a parent or guardian has reviewed the contact and privacy arrangements with me.</label>
-<div class="note"><p><strong>Applications are not open yet.</strong> This form is being prepared. Do not enter real personal information or try to submit an application until the project owner confirms that applications are open and provides the full privacy information.</p></div>
-<button id="submit-application" class="button" type="submit" disabled>Applications not open yet</button>
-<p class="small" id="form-status" aria-live="polite">This is a preview. No application will be accepted until recruitment is formally opened.</p>
-<div class="note"><p><strong>Want to test the submission process?</strong> You can submit a fictional test application to the separate test database. Do not use real personal information.</p><a class="button secondary" href="test-application.html">Open fictional test form</a></div>
-</form>
-<a class="button secondary" href="confirm.html">Back to role review</a>
+<h2>Want to test the submission process?</h2>
+<p>You can try the separate test form using fictional information. It uses fixed test identity details and sends submissions only to the isolated test environment, not the real recruitment database.</p>
+<a class="button" id="test-link" href="test-application.html">Open fictional test form</a>
+<p class="small">Use made-up answers only. Do not enter real names, usernames, contact details, school details or other personal information.</p>
+<p><a href="privacy.html">Read the privacy and applicant safety draft</a> · <a href="roles.html">Return to available roles</a></p>
 </section>
 </main>
-<footer>Beyond the Horizon · Development recruitment</footer>
+<footer>Beyond the Horizon · Development recruitment · Applications currently closed</footer>
 <script>
-const API = "https://beyond-the-horizon-applications.pagey101212.workers.dev";
-const PUBLIC_INTAKE_APPROVED = false;
 const params = new URLSearchParams(location.search);
 const selectedRole = params.get("role") || sessionStorage.getItem("bthRole") || "";
-const roleDisplay = document.getElementById("role-display");
-const form = document.getElementById("application-form");
-const submitButton = document.getElementById("submit-application");
-const status = document.getElementById("form-status");
-const method = document.getElementById("contact-method");
-const other = document.getElementById("other-contact");
-const otherLabel = document.getElementById("other-contact-label");
-const otherTools = document.getElementById("other-tools");
-const otherToolsLabel = document.getElementById("other-tools-label");
-roleDisplay.textContent = selectedRole || "No role selected. Return to the roles page and choose one.";
-function updateConditionalFields() {
-  const showContact = method.value === "Other";
-  other.hidden = !showContact; otherLabel.hidden = !showContact; other.required = showContact;
-  const showTools = form.querySelector('input[name="tools"][value="Other tools"]').checked;
-  otherTools.hidden = !showTools; otherToolsLabel.hidden = !showTools; otherTools.required = showTools;
+document.getElementById("role-display").textContent = selectedRole || "No role selected. Return to the roles page and choose one.";
+if (selectedRole) {
+  document.getElementById("test-link").href = "test-application.html?role=" + encodeURIComponent(selectedRole);
 }
-method.addEventListener("change", updateConditionalFields);
-form.querySelectorAll('input[name="tools"]').forEach(input => input.addEventListener("change", updateConditionalFields));
-updateConditionalFields();
-async function refreshIntakeStatus() {
-  submitButton.disabled = true;
-  if (!PUBLIC_INTAKE_APPROVED) { submitButton.textContent = "Applications not open yet"; status.textContent = "Applications are closed while the project privacy and guardian-review arrangements are being finalised. This preview does not send or save your information."; return false; }
-  try {
-    const response = await fetch(API + "/api/health", {cache:"no-store"}); const data = await response.json();
-    if (!response.ok || data.intakeEnabled !== true) throw new Error("Recruitment is not open yet.");
-    submitButton.disabled = false; submitButton.textContent = "Submit application"; status.textContent = "Recruitment is open. Check your answers before submitting."; return true;
-  } catch { submitButton.textContent = "Applications not open yet"; status.textContent = "The application service could not confirm that recruitment is open. Your information has not been sent."; return false; }
-}
-form.addEventListener("submit", async event => {
-  event.preventDefault();
-  if (submitButton.disabled || !PUBLIC_INTAKE_APPROVED) return;
-  if (!selectedRole) { status.textContent = "Choose a role before submitting."; return; }
-  if (!form.reportValidity()) return;
-  submitButton.disabled = true; status.textContent = "Checking the application service…";
-  try {
-    const healthResponse = await fetch(API + "/api/health", {cache:"no-store"}); const health = await healthResponse.json();
-    if (!healthResponse.ok || health.intakeEnabled !== true) throw new Error("Applications have closed. Nothing was submitted.");
-    const payload = {
-      display_name: form.elements.display_name.value.trim(), roblox_username: form.elements.roblox_username.value.trim(), age_range: form.elements.age_range.value, chosen_role: selectedRole,
-      tools: Array.from(form.querySelectorAll('input[name="tools"]:checked')).map(input => input.value),
-      other_tools: form.elements.other_tools.value.trim(), experience: "", motivation: form.elements.motivation.value.trim(),
-      contact_method: form.elements.contact_method.value, other_contact_method: form.elements.other_contact_method.value.trim(),
-      contact_detail: form.elements.contact_detail.value.trim(), privacy_acknowledged: document.getElementById("privacy-ack").checked
-    };
-    const response = await fetch(API + "/api/applications", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    const result = await response.json(); if (!response.ok) throw new Error(result.error || "The application could not be submitted.");
-    form.reset(); updateConditionalFields(); status.textContent = "Application received. Reference: " + result.application_id + ". No automatic notification is sent; check with the project team using the agreed contact method.";
-  } catch (error) { status.textContent = error.message || "The application could not be submitted. Please try again later."; }
-  finally { submitButton.disabled = true; await refreshIntakeStatus(); }
-});
-refreshIntakeStatus();
 </script>
 </body>
 </html>
